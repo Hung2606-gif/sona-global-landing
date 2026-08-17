@@ -1,0 +1,14 @@
+{
+  "navigation": {
+    "home": "Trang chủ",
+    "products": "Sản phẩm",
+    "ecosystem": "Hệ sinh thái",
+    "careers": "Tuyển dụng",
+    "contact": "Liên hệ",
+    "start": "Bắt đầu"
+  },
+  "footer": {
+    "description": "SONA-GLOBAL xây dựng sản phẩm số có ích, lấy con người làm trung tâm.",
+    "rights": "© 2026 SONA-GLOBAL. All rights reserved."
+  }
+}

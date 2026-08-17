@@ -1,0 +1,14 @@
+{
+  "navigation": {
+    "home": "Home",
+    "products": "Products",
+    "ecosystem": "Ecosystem",
+    "careers": "Careers",
+    "contact": "Contact",
+    "start": "Start a project"
+  },
+  "footer": {
+    "description": "SONA-GLOBAL builds useful digital products with people at the centre.",
+    "rights": "© 2026 SONA-GLOBAL. All rights reserved."
+  }
+}

@@ -1,0 +1,8 @@
+.sona-global-shell {
+  background: radial-gradient(circle at 78% 4%, color-mix(in oklab, var(--primary) 16%, transparent), transparent 28rem), radial-gradient(circle at 8% 52%, color-mix(in oklab, var(--chart-5) 11%, transparent), transparent 27rem), var(--background);
+}
+.sona-global-grid { background-image: linear-gradient(to right, var(--border) 1px, transparent 1px), linear-gradient(to bottom, var(--border) 1px, transparent 1px); background-size: 4rem 4rem; mask-image: linear-gradient(to bottom, black, transparent 90%); }
+.sona-global-orb { animation: sona-global-float 9s ease-in-out infinite; filter: blur(4px); }
+.sona-global-orb-delayed { animation-delay: -4s; }
+@keyframes sona-global-float { 50% { transform: translate3d(0, -1.25rem, 0) scale(1.04); } }
+@media (prefers-reduced-motion: reduce) { .sona-global-orb { animation: none; } }

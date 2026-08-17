@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#060a12" />
+    <meta name="description" data-vi="AI Apps - Ứng dụng AI thông minh từ SONA-GLOBAL" data-en="AI Apps - Intelligent AI applications from SONA-GLOBAL" content="AI Apps - Ứng dụng AI thông minh từ SONA-GLOBAL" />
+    <title data-vi="SONA-GLOBAL — AI Apps" data-en="SONA-GLOBAL — AI Apps">SONA-GLOBAL — AI Apps</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body data-page="ecosystem">
+    <canvas id="network" aria-hidden="true"></canvas>
+    <div class="noise" aria-hidden="true"></div>
+    <header id="site-header"></header>
+    
+    <main>
+      <!-- Hero Section -->
+      <section class="page-hero section ai-apps-hero" id="ai-apps">
+        <div class="hero-copy">
+          <p class="eyebrow reveal">
+            <span class="live-dot"></span>
+            <span data-i18n data-vi="AI APPS" data-en="AI APPS">AI APPS</span>
+          </p>
+          <h1 class="hero-title reveal reveal-delay-1" data-i18n 
+              data-vi="Trí tuệ nhân tạo<br />cho <em>mọi người.</em>" 
+              data-en="Artificial Intelligence<br />for <em>everyone.</em>">
+            Trí tuệ nhân tạo<br />cho <em>mọi người.</em>
+          </h1>
+          <p class="hero-lead reveal reveal-delay-2" data-i18n 
+             data-vi="Chúng tôi tin rằng AI không chỉ dành cho các chuyên gia. Các ứng dụng AI của SONA-GLOBAL mang công nghệ tiên tiến đến tay mọi người, giúp họ sáng tạo, giải trí và khám phá khả năng vô tận." 
+             data-en="We believe AI is not just for experts. SONA-GLOBAL's AI apps bring cutting-edge technology to everyone, helping them create, entertain, and explore endless possibilities.">
+            Chúng tôi tin rằng AI không chỉ dành cho các chuyên gia. Các ứng dụng AI của SONA-GLOBAL mang công nghệ tiên tiến đến tay mọi người, giúp họ sáng tạo, giải trí và khám phá khả năng vô tận.
+          </p>
+        </div>
+        <figure class="hero-art compact reveal" data-parallax="0.018">
+          <img src="./media/sona-ecosystem-hero.png" alt="AI Apps Ecosystem" />
+        </figure>
+      </section>
+
+      <!-- Products Grid Section -->
+      <section class="section ai-products-section" aria-labelledby="ai-products-title">
+        <p class="section-label reveal">
+          <span>01</span>
+          <span data-i18n data-vi="SẢN PHẨM AI" data-en="AI PRODUCTS">SẢN PHẨM AI</span>
+        </p>
+        <h2 id="ai-products-title" class="display narrow reveal" data-i18n 
+            data-vi="Ứng dụng AI<br /><em>thay đổi cuộc sống.</em>" 
+            data-en="AI apps that<br /><em>transform lives.</em>">
+          Ứng dụng AI<br /><em>thay đổi cuộc sống.</em>
+        </h2>
+
+        <div class="ai-products-grid">
+          <!-- Product 1: Popcorn Maker -->
+          <article class="ai-product-card reveal" data-tilt>
+            <div class="product-image">
+              <img src="./media/product1-popcorn.jpg" alt="Popcorn Maker AI" loading="lazy" />
+            </div>
+            <div class="product-info">
+              <span class="product-badge" data-i18n data-vi="AI GIẢI TRÍ" data-en="AI ENTERTAINMENT">AI GIẢI TRÍ</span>
+              <h3 data-i18n data-vi="Popcorn Maker AI" data-en="Popcorn Maker AI">Popcorn Maker AI</h3>
+              <p data-i18n 
+                 data-vi="Tạo nội dung giải trí cá nhân hóa với sức mạnh AI. Từ gợi ý phim ảnh đến trải nghiệm tương tác thông minh." 
+                 data-en="Create personalized entertainment content with AI power. From movie recommendations to smart interactive experiences.">
+                Tạo nội dung giải trí cá nhân hóa với sức mạnh AI. Từ gợi ý phim ảnh đến trải nghiệm tương tác thông minh.
+              </p>
+              <ul class="product-features">
+                <li data-i18n data-vi="✦ Gợi ý nội dung thông minh" data-en="✦ Smart content recommendations">✦ Gợi ý nội dung thông minh</li>
+                <li data-i18n data-vi="✦ Tùy chỉnh theo sở thích" data-en="✦ Personalized preferences">✦ Tùy chỉnh theo sở thích</li>
+                <li data-i18n data-vi="✦ Trải nghiệm giải trí mới" data-en="✦ New entertainment experience">✦ Trải nghiệm giải trí mới</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Product 2: Video Maker AI -->
+          <article class="ai-product-card reveal reveal-delay-1" data-tilt>
+            <div class="product-image">
+              <img src="./media/product2-videomaker.jpg" alt="Video Maker AI" loading="lazy" />
+            </div>
+            <div class="product-info">
+              <span class="product-badge" data-i18n data-vi="AI VIDEO" data-en="AI VIDEO">AI VIDEO</span>
+              <h3 data-i18n data-vi="Video Maker AI" data-en="Video Maker AI">Video Maker AI</h3>
+              <p data-i18n 
+                 data-vi="Chuyển đổi ảnh và video thành tác phẩm nghệ thuật với AI. Chỉnh sửa chuyên nghiệp chỉ bằng vài thao tác đơn giản." 
+                 data-en="Transform photos and videos into artworks with AI. Professional editing with just a few simple taps.">
+                Chuyển đổi ảnh và video thành tác phẩm nghệ thuật với AI. Chỉnh sửa chuyên nghiệp chỉ bằng vài thao tác đơn giản.
+              </p>
+              <ul class="product-features">
+                <li data-i18n data-vi="✦ Chỉnh sửa video tự động" data-en="✦ Automatic video editing">✦ Chỉnh sửa video tự động</li>
+                <li data-i18n data-vi="✦ Hiệu ứng AI sáng tạo" data-en="✦ Creative AI effects">✦ Hiệu ứng AI sáng tạo</li>
+                <li data-i18n data-vi="✦ Xuất video chất lượng cao" data-en="✦ High-quality video export">✦ Xuất video chất lượng cao</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Product 6: Love Calls AI -->
+          <article class="ai-product-card reveal" data-tilt>
+            <div class="product-image">
+              <img src="./media/product6-lovecalls.jpg" alt="Love Calls AI" loading="lazy" />
+            </div>
+            <div class="product-info">
+              <span class="product-badge" data-i18n data-vi="AI KẾT NỐI" data-en="AI CONNECTION">AI KẾT NỐI</span>
+              <h3 data-i18n data-vi="Love Calls AI" data-en="Love Calls AI">Love Calls AI</h3>
+              <p data-i18n 
+                 data-vi="Nâng tầm trải nghiệm giao tiếp với AI. Từ nhận dạng giọng nói thông minh đến tùy chỉnh cuộc gọi cá nhân hóa." 
+                 data-en="Elevate your communication experience with AI. From smart voice recognition to personalized call customization.">
+                Nâng tầm trải nghiệm giao tiếp với AI. Từ nhận dạng giọng nói thông minh đến tùy chỉnh cuộc gọi cá nhân hóa.
+              </p>
+              <ul class="product-features">
+                <li data-i18n data-vi="✦ Nhận dạng người gọi AI" data-en="✦ AI caller identification">✦ Nhận dạng người gọi AI</li>
+                <li data-i18n data-vi="✦ Tùy chỉnh giao diện cuộc gọi" data-en="✦ Customizable call interface">✦ Tùy chỉnh giao diện cuộc gọi</li>
+                <li data-i18n data-vi="✦ Lọc cuộc gọi thông minh" data-en="✦ Smart call filtering">✦ Lọc cuộc gọi thông minh</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Product 7: Voice Lock AI -->
+          <article class="ai-product-card reveal reveal-delay-1" data-tilt>
+            <div class="product-image">
+              <img src="./media/product7-voicelock.jpg" alt="Voice Lock AI" loading="lazy" />
+            </div>
+            <div class="product-info">
+              <span class="product-badge" data-i18n data-vi="AI BẢO MẬT" data-en="AI SECURITY">AI BẢO MẬT</span>
+              <h3 data-i18n data-vi="Voice Lock AI" data-en="Voice Lock AI">Voice Lock AI</h3>
+              <p data-i18n 
+                 data-vi="Bảo mật thiết bị bằng giọng nói với công nghệ AI tiên tiến. An toàn tuyệt đối với nhận dạng sinh trắc học thông minh." 
+                 data-en="Secure your device with voice using advanced AI technology. Absolute security with intelligent biometric recognition.">
+                Bảo mật thiết bị bằng giọng nói với công nghệ AI tiên tiến. An toàn tuyệt đối với nhận dạng sinh trắc học thông minh.
+              </p>
+              <ul class="product-features">
+                <li data-i18n data-vi="✦ Nhận dạng giọng nói AI" data-en="✦ AI voice recognition">✦ Nhận dạng giọng nói AI</li>
+                <li data-i18n data-vi="✦ Bảo mật đa lớp" data-en="✦ Multi-layer security">✦ Bảo mật đa lớp</li>
+                <li data-i18n data-vi="✦ Mở khóa tức thì" data-en="✦ Instant unlock">✦ Mở khóa tức thì</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Technology Section -->
+      <section class="section ai-technology-section">
+        <div class="data-panel reveal">
+          <img src="./media/sona-ecosystem-hero.png" alt="AI Technology" loading="lazy" />
+          <div class="data-copy">
+            <p class="section-label">
+              <span>02</span>
+              <span data-i18n data-vi="CÔNG NGHỆ AI" data-en="AI TECHNOLOGY">CÔNG NGHỆ AI</span>
+            </p>
+            <h2 data-i18n 
+                data-vi="Sức mạnh AI<br /><em>trong tầm tay.</em>" 
+                data-en="AI power<br /><em>at your fingertips.</em>">
+              Sức mạnh AI<br /><em>trong tầm tay.</em>
+            </h2>
+            <div class="data-points">
+              <p>
+                <strong data-i18n data-vi="Machine Learning" data-en="Machine Learning">Machine Learning</strong>
+                <span data-i18n 
+                      data-vi="Học máy tiên tiến giúp ứng dụng ngày càng thông minh hơn theo thời gian." 
+                      data-en="Advanced machine learning makes apps smarter over time.">
+                  Học máy tiên tiến giúp ứng dụng ngày càng thông minh hơn theo thời gian.
+                </span>
+              </p>
+              <p>
+                <strong data-i18n data-vi="Neural Networks" data-en="Neural Networks">Neural Networks</strong>
+                <span data-i18n 
+                      data-vi="Mạng nơ-ron sâu xử lý dữ liệu phức tạp với độ chính xác cao." 
+                      data-en="Deep neural networks process complex data with high accuracy.">
+                  Mạng nơ-ron sâu xử lý dữ liệu phức tạp với độ chính xác cao.
+                </span>
+              </p>
+              <p>
+                <strong data-i18n data-vi="Real-time AI" data-en="Real-time AI">Real-time AI</strong>
+                <span data-i18n 
+                      data-vi="Xử lý AI thời gian thực mang đến trải nghiệm mượt mà, không độ trễ." 
+                      data-en="Real-time AI processing delivers smooth, lag-free experiences.">
+                  Xử lý AI thời gian thực mang đến trải nghiệm mượt mà, không độ trễ.
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="site-footer"></footer>
+    <script type="module" src="./app.js?v=20260817-3"></script>
+  </body>
+</html>
