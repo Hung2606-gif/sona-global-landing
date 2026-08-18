@@ -7,9 +7,18 @@ const appRoot = fileURLToPath(new URL(".", import.meta.url))
 const publicRoot = resolve(appRoot, "public")
 
 const contentTypes = {
-  ".avif": "image/avif", ".css": "text/css; charset=utf-8", ".html": "text/html; charset=utf-8", ".ico": "image/x-icon",
-  ".jpeg": "image/jpeg", ".jpg": "image/jpeg", ".js": "text/javascript; charset=utf-8", ".json": "application/json; charset=utf-8",
-  ".png": "image/png", ".svg": "image/svg+xml", ".webp": "image/webp",
+  ".avif": "image/avif", 
+  ".css": "text/css; charset=utf-8", 
+  ".html": "text/html; charset=utf-8", 
+  ".ico": "image/x-icon",
+  ".jpeg": "image/jpeg", 
+  ".jpg": "image/jpeg", 
+  ".js": "text/javascript; charset=utf-8", 
+  ".json": "application/json; charset=utf-8",
+  ".png": "image/png", 
+  ".svg": "image/svg+xml", 
+  ".webp": "image/webp",
+  ".txt": "text/plain; charset=utf-8",
 }
 
 const server = createServer((request, response) => {

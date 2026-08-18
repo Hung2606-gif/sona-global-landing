@@ -1,0 +1,47 @@
+# app-ads.txt for SONA-GLOBAL
+# Last updated: 2026-08-17
+# Contact: business@apero.vn
+
+# Google AdMob
+google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+
+# Google AdSense  
+google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+
+# Meta Audience Network (Facebook)
+facebook.com, 0000000000000000, RESELLER, c3e20eee3f780d68
+
+# Unity Ads
+unity3d.com, 0000000, DIRECT, 96cabb5fbdde37a7
+
+# AppLovin
+applovin.com, 00000000000000000000000000000000, DIRECT
+
+# IronSource
+ironsrc.com, 000000, DIRECT, 83e75a7ae333ca9d
+
+# Vungle
+vungle.com, 000000000000000000000, DIRECT, c107d686becd2d77
+
+# InMobi
+inmobi.com, 000000000000000000000000000000000000, DIRECT, 83e75a7ae333ca9d
+
+# Chartboost
+chartboost.com, 00000000000000000000000000000000, DIRECT
+
+# AdColony
+adcolony.com, 000000000000000000000000, DIRECT, 1ad675c9de6b5176
+
+# Tapjoy
+tapjoy.com, 00000000000000000000000000000000, DIRECT, 5d62403b186f2ace
+
+# Mintegral
+mintegral.com, 00000, DIRECT
+
+# Pangle (TikTok)
+pangleglobal.com, 0000000000, DIRECT
+
+# NOTE: Replace all "000..." placeholder IDs with your actual publisher IDs
+# Each advertising network will provide you with your unique publisher ID
+# Keep this file in the root directory: /app-ads.txt
+# More info: https://iabtechlab.com/app-ads-txt/

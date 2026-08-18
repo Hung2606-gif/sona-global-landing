@@ -1,9 +1,63 @@
 const labels = {
   vi: {
-    about: "Về chúng tôi", ecosystem: "Ecosystem", publishing: "Phát hành", share: "We Share", library: "Thư viện", contact: "Liên hệ", footer: "CREATIONS FOR BILLIONS", what: "WHAT", who: "WHO", mobileApps: "Mobile Apps", aiApps: "AI Apps", privacy: "Chính sách bảo mật", terms: "Điều khoản sử dụng", cookies: "Quản lý cookies"
+    about: "Về chúng tôi", 
+    ecosystem: "Ecosystem", 
+    publishing: "Phát hành", 
+    share: "We Share", 
+    library: "Thư viện", 
+    contact: "Liên hệ", 
+    footer: "CREATIONS FOR BILLIONS", 
+    what: "SẢN PHẨM", 
+    who: "VỀ CHÚNG TÔI", 
+    mobileApps: "Mobile Apps", 
+    aiApps: "AI Apps", 
+    privacy: "Chính sách bảo mật", 
+    terms: "Điều khoản sử dụng", 
+    cookies: "Quản lý cookies",
+    // Additional translations
+    products: "Sản phẩm",
+    technology: "Công nghệ",
+    partners: "Đối tác",
+    resources: "Tài nguyên",
+    documentation: "Tài liệu",
+    support: "Hỗ trợ",
+    blog: "Blog",
+    careers: "Tuyển dụng",
+    press: "Báo chí",
+    legal: "Pháp lý",
+    allRightsReserved: "© {{year}} SONA-GLOBAL. Bảo lưu mọi quyền.",
+    createdInVietnam: "Made with ❤️ in Vietnam",
+    scalingGlobally: "Scaling globally"
   },
   en: {
-    about: "About us", ecosystem: "Ecosystem", publishing: "Publishing", share: "We Share", library: "Library", contact: "Contact", footer: "CREATIONS FOR BILLIONS", what: "WHAT", who: "WHO", mobileApps: "Mobile Apps", aiApps: "AI Apps", privacy: "Privacy Policy", terms: "Terms of Use", cookies: "Manage Cookies"
+    about: "About us", 
+    ecosystem: "Ecosystem", 
+    publishing: "Publishing", 
+    share: "We Share", 
+    library: "Library", 
+    contact: "Contact", 
+    footer: "CREATIONS FOR BILLIONS", 
+    what: "PRODUCTS", 
+    who: "ABOUT US", 
+    mobileApps: "Mobile Apps", 
+    aiApps: "AI Apps", 
+    privacy: "Privacy Policy", 
+    terms: "Terms of Use", 
+    cookies: "Manage Cookies",
+    // Additional translations
+    products: "Products",
+    technology: "Technology",
+    partners: "Partners",
+    resources: "Resources",
+    documentation: "Documentation",
+    support: "Support",
+    blog: "Blog",
+    careers: "Careers",
+    press: "Press",
+    legal: "Legal",
+    allRightsReserved: "© {{year}} SONA-GLOBAL. All rights reserved.",
+    createdInVietnam: "Made with ❤️ in Vietnam",
+    scalingGlobally: "Scaling globally"
   }
 };
 
@@ -52,7 +106,46 @@ function renderChrome() {
   }
   if (footer) {
     footer.className = "site-footer";
-    footer.innerHTML = `<div class="footer-shell"><a class="footer-brand" href="./index.html" aria-label="SONA-GLOBAL home"><span class="brand-mark" aria-hidden="true"></span><span>SONA-GLOBAL<small>${copy.footer}</small></span></a><div class="footer-columns"><section><p>${copy.what}</p><a href="./ecosystem.html#products-title">${copy.mobileApps}</a><a href="./ecosystem.html#products-title">${copy.aiApps}</a><a href="./publishing.html">${copy.publishing}</a></section><section><p>${copy.who}</p><a href="./index.html">${copy.about}</a><a href="./share.html">${copy.share}</a><a href="./library.html">${copy.library}</a></section></div><div class="footer-legal"><span>© ${new Date().getFullYear()} SONA-GLOBAL</span><div><span>${copy.privacy}</span><span>${copy.terms}</span><span>${copy.cookies}</span></div></div></div>`;
+    const year = new Date().getFullYear();
+    const copyrightText = copy.allRightsReserved.replace('{{year}}', year);
+    
+    footer.innerHTML = `<div class="footer-shell">
+      <a class="footer-brand" href="./index.html" aria-label="SONA-GLOBAL home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>SONA-GLOBAL<small>${copy.footer}</small></span>
+      </a>
+      <div class="footer-columns">
+        <section>
+          <p>${copy.what}</p>
+          <a href="./ai-apps.html">${copy.aiApps}</a>
+          <a href="./mobile-apps.html">${copy.mobileApps}</a>
+          <a href="./publishing.html">${copy.publishing}</a>
+        </section>
+        <section>
+          <p>${copy.who}</p>
+          <a href="./index.html">${copy.about}</a>
+          <a href="./share.html">${copy.share}</a>
+          <a href="./library.html">${copy.library}</a>
+        </section>
+        <section>
+          <p>${copy.resources}</p>
+          <a href="./library.html">${copy.documentation}</a>
+          <a href="./contact.html">${copy.support}</a>
+          <a href="/app-ads.txt" target="_blank">app-ads.txt</a>
+        </section>
+      </div>
+      <div class="footer-legal">
+        <span>${copyrightText}</span>
+        <div>
+          <span>${copy.privacy}</span>
+          <span>${copy.terms}</span>
+          <span>${copy.cookies}</span>
+        </div>
+        <small style="color: var(--muted); font-size: 10px; margin-top: 8px; display: block;">
+          ${copy.createdInVietnam} · ${copy.scalingGlobally}
+        </small>
+      </div>
+    </div>`;
   }
 }
 
