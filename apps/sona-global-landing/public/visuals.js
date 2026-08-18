@@ -544,3 +544,244 @@ if (document.readyState === 'loading') {
   createPremiumAIAtom();
   createPremiumScanner();
 }
+
+
+// ============================================
+// RESPONSIVE HELPERS
+// ============================================
+
+// Detect device type
+function isMobile() {
+  return window.innerWidth <= 720 || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+function isTablet() {
+  return window.innerWidth <= 980 && window.innerWidth > 720;
+}
+
+// Adjust particle count based on device
+function getParticleCount() {
+  if (isMobile()) return 30;
+  if (isTablet()) return 50;
+  return 80;
+}
+
+// Adjust animation speeds
+function getAnimationSpeed(baseSpeed) {
+  if (isMobile()) return baseSpeed * 1.5; // Slower on mobile
+  return baseSpeed;
+}
+
+// ============================================
+// TOUCH OPTIMIZATIONS
+// ============================================
+
+// Add touch feedback for cards
+document.addEventListener('DOMContentLoaded', () => {
+  if ('ontouchstart' in window) {
+    const cards = document.querySelectorAll('.metric-card, .value-card, .product-card, .story-card, .resource-card');
+    
+    cards.forEach(card => {
+      card.addEventListener('touchstart', function() {
+        this.style.transform = 'scale(0.98)';
+      });
+      
+      card.addEventListener('touchend', function() {
+        this.style.transform = '';
+      });
+    });
+  }
+});
+
+// ============================================
+// RESPONSIVE GLOBE SIZING
+// ============================================
+function getGlobeSize() {
+  const width = window.innerWidth;
+  
+  if (width <= 480) {
+    return { width: 300, height: 300, radius: 100 };
+  } else if (width <= 720) {
+    return { width: 400, height: 400, radius: 130 };
+  } else if (width <= 980) {
+    return { width: 500, height: 500, radius: 160 };
+  } else {
+    return { width: 600, height: 600, radius: 200 };
+  }
+}
+
+// Update globe on resize
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    // Reinitialize hero visual if needed
+    const container = document.getElementById('hero-visual');
+    if (container && container.querySelector('svg')) {
+      container.innerHTML = '';
+      initHeroVisual();
+    }
+  }, 250);
+});
+
+// ============================================
+// PERFORMANCE MONITORING
+// ============================================
+
+// Reduce effects on low-end devices
+function detectPerformanceMode() {
+  const ua = navigator.userAgent.toLowerCase();
+  const isLowEnd = /android [1-4]\.|android 5\.[0-1]/i.test(ua);
+  
+  if (isLowEnd) {
+    // Disable heavy animations
+    document.documentElement.style.setProperty('--disable-heavy-fx', '1');
+    
+    // Reduce particle count
+    const canvas = document.getElementById('particle-canvas');
+    if (canvas) {
+      canvas.style.display = 'none';
+    }
+  }
+}
+
+detectPerformanceMode();
+
+// ============================================
+// VIEWPORT HEIGHT FIX (Android Chrome)
+// ============================================
+
+// Fix 100vh issue on mobile browsers (address bar)
+function setVH() {
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
+setVH();
+window.addEventListener('resize', setVH);
+window.addEventListener('orientationchange', setVH);
+
+// ============================================
+// SAFE AREA DETECTION
+// ============================================
+
+function detectNotch() {
+  const supportsEnv = CSS.supports('padding-top: env(safe-area-inset-top)');
+  if (supportsEnv) {
+    document.body.classList.add('has-notch');
+  }
+}
+
+detectNotch();
+
+// ============================================
+// LAZY LOADING FOR ANIMATIONS
+// ============================================
+
+const animationObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const target = entry.target;
+        
+        // Initialize animations only when visible
+        if (target.classList.contains('orbital-art') && !target.dataset.initialized) {
+          target.dataset.initialized = 'true';
+          createPremiumAIAtom();
+        }
+        
+        if (target.classList.contains('scan-art') && !target.dataset.initialized) {
+          target.dataset.initialized = 'true';
+          createPremiumScanner();
+        }
+      }
+    });
+  },
+  {
+    rootMargin: '100px',
+    threshold: 0.1
+  }
+);
+
+// Observe animation containers
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.orbital-art, .scan-art').forEach(el => {
+    animationObserver.observe(el);
+  });
+});
+
+// ============================================
+// NETWORK-AWARE LOADING
+// ============================================
+
+if ('connection' in navigator) {
+  const connection = navigator.connection;
+  
+  if (connection.saveData || connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
+    // Reduce effects on slow connections
+    document.documentElement.classList.add('low-bandwidth');
+    
+    // Disable particle canvas
+    const canvas = document.getElementById('particle-canvas');
+    if (canvas) {
+      canvas.style.display = 'none';
+    }
+  }
+}
+
+// ============================================
+// ORIENTATION CHANGE HANDLER
+// ============================================
+
+window.addEventListener('orientationchange', () => {
+  // Force layout recalculation
+  setTimeout(() => {
+    window.dispatchEvent(new Event('resize'));
+  }, 100);
+});
+
+// ============================================
+// PREVENT ZOOM ON DOUBLE TAP (Android)
+// ============================================
+
+let lastTouchEnd = 0;
+document.addEventListener('touchend', (e) => {
+  const now = Date.now();
+  if (now - lastTouchEnd <= 300) {
+    e.preventDefault();
+  }
+  lastTouchEnd = now;
+}, { passive: false });
+
+// ============================================
+// ANDROID BACK BUTTON HANDLER
+// ============================================
+
+if ('history' in window && 'pushState' in window.history) {
+  // Add state for proper back navigation
+  window.addEventListener('load', () => {
+    window.history.pushState({ page: 'main' }, '', window.location.href);
+  });
+}
+
+// ============================================
+// SMOOTH SCROLL POLYFILL FOR OLDER ANDROID
+// ============================================
+
+if (!('scrollBehavior' in document.documentElement.style)) {
+  // Polyfill for smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+}
+
+console.log('🚀 Premium Visuals V2.0 Loaded - Responsive: Desktop + Android optimized');
