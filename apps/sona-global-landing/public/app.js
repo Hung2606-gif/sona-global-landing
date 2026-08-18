@@ -320,4 +320,15 @@ setInteractiveMotion();
 setContactForm();
 drawNetwork();
 initRotatingProducts();
+
+// Initialize EPIC Dragon Animations
+if (typeof initAllDragons === 'function') {
+  // Wait for DOM to be ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAllDragons);
+  } else {
+    initAllDragons();
+  }
+}
+
 window.addEventListener("scroll", () => document.querySelector(".site-header")?.classList.toggle("is-scrolled", window.scrollY > 12), { passive: true });
