@@ -1,191 +1,337 @@
 /* ============================================
-   SONA-GLOBAL VISUAL SYSTEM
-   Thay thế TẤT CẢ ảnh tĩnh bằng SVG animations
+   PREMIUM VISUAL SYSTEM - PROFESSIONAL GRADE
+   High-quality animations for premium feel
    ============================================ */
 
-// 1. THAY THẾ GLOBE-SPHERE: Animated 3D Globe
-function createHeroGlobe() {
+// 1. PREMIUM 3D GLOBE - Chuyên nghiệp, mượt mà
+function createPremiumGlobe() {
   const container = document.getElementById('hero-visual');
   if (!container) return;
   
+  // Add particle field
+  const particleField = document.createElement('div');
+  particleField.className = 'particle-field';
+  for (let i = 0; i < 30; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = `${Math.random() * 100}%`;
+    particle.style.top = `${Math.random() * 100}%`;
+    particle.style.setProperty('--tx', `${(Math.random() - 0.5) * 200}px`);
+    particle.style.setProperty('--ty', `${(Math.random() - 0.5) * 200}px`);
+    particle.style.animationDelay = `${Math.random() * 15}s`;
+    particleField.appendChild(particle);
+  }
+  container.appendChild(particleField);
+  
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('viewBox', '0 0 500 500');
-  svg.setAttribute('style', 'width: 100%; max-width: 500px; height: auto;');
+  svg.setAttribute('viewBox', '0 0 600 600');
+  svg.setAttribute('class', 'glow-pulse');
   
   svg.innerHTML = `
     <defs>
-      <radialGradient id="globeGradient">
-        <stop offset="0%" style="stop-color:rgb(85,228,255);stop-opacity:0.3" />
-        <stop offset="100%" style="stop-color:rgb(0,100,200);stop-opacity:0.1" />
+      <radialGradient id="sphereGradient">
+        <stop offset="0%" stop-color="rgb(85,228,255)" stop-opacity="0.8"/>
+        <stop offset="50%" stop-color="rgb(0,150,255)" stop-opacity="0.4"/>
+        <stop offset="100%" stop-color="rgb(0,50,150)" stop-opacity="0.1"/>
       </radialGradient>
-      <filter id="glow">
-        <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      
+      <radialGradient id="coreGradient">
+        <stop offset="0%" stop-color="rgb(216,255,94)" stop-opacity="1"/>
+        <stop offset="50%" stop-color="rgb(85,228,255)" stop-opacity="0.6"/>
+        <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+      </radialGradient>
+      
+      <filter id="premiumGlow">
+        <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
         <feMerge>
           <feMergeNode in="coloredBlur"/>
+          <feMergeNode in="coloredBlur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+      
+      <filter id="softGlow">
+        <feGaussianBlur stdDeviation="3" result="blur"/>
+        <feMerge>
+          <feMergeNode in="blur"/>
           <feMergeNode in="SourceGraphic"/>
         </feMerge>
       </filter>
     </defs>
     
-    <!-- Main globe sphere -->
-    <circle cx="250" cy="250" r="150" fill="url(#globeGradient)" opacity="0.4" filter="url(#glow)">
-      <animate attributeName="r" values="150;155;150" dur="4s" repeatCount="indefinite"/>
+    <!-- Outer glow rings -->
+    <circle cx="300" cy="300" r="200" fill="none" stroke="url(#sphereGradient)" stroke-width="1" opacity="0.3">
+      <animate attributeName="r" values="200;210;200" dur="4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;0.5;0.3" dur="4s" repeatCount="indefinite"/>
     </circle>
     
-    <!-- Orbital rings -->
-    <ellipse cx="250" cy="250" rx="180" ry="80" fill="none" stroke="rgba(85,228,255,0.3)" stroke-width="2">
-      <animateTransform attributeName="transform" type="rotate" from="0 250 250" to="360 250 250" dur="20s" repeatCount="indefinite"/>
-    </ellipse>
+    <circle cx="300" cy="300" r="220" fill="none" stroke="rgba(85,228,255,0.2)" stroke-width="1">
+      <animate attributeName="r" values="220;230;220" dur="5s" repeatCount="indefinite"/>
+    </circle>
     
-    <ellipse cx="250" cy="250" rx="180" ry="80" fill="none" stroke="rgba(216,255,94,0.3)" stroke-width="2">
-      <animateTransform attributeName="transform" type="rotate" from="60 250 250" to="420 250 250" dur="15s" repeatCount="indefinite"/>
-    </ellipse>
+    <!-- Main sphere with gradient -->
+    <circle cx="300" cy="300" r="180" fill="url(#sphereGradient)" opacity="0.6" filter="url(#premiumGlow)">
+      <animate attributeName="r" values="180;185;180" dur="3s" repeatCount="indefinite"/>
+    </circle>
     
-    <ellipse cx="250" cy="250" rx="180" ry="80" fill="none" stroke="rgba(85,228,255,0.2)" stroke-width="2">
-      <animateTransform attributeName="transform" type="rotate" from="-60 250 250" to="300 250 250" dur="25s" repeatCount="indefinite"/>
-    </ellipse>
-    
-    <!-- Connection nodes -->
+    <!-- Grid lines - horizontal -->
     ${[...Array(8)].map((_, i) => {
-      const angle = (i / 8) * Math.PI * 2;
-      const x = 250 + Math.cos(angle) * 150;
-      const y = 250 + Math.sin(angle) * 150;
+      const y = 120 + (i * 360 / 8);
       return `
-        <circle cx="${x}" cy="${y}" r="4" fill="#d8ff5e" opacity="0.8">
-          <animate attributeName="r" values="4;6;4" dur="2s" begin="${i * 0.25}s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" begin="${i * 0.25}s" repeatCount="indefinite"/>
-        </circle>
-        <circle cx="${x}" cy="${y}" r="8" fill="none" stroke="#55e4ff" stroke-width="1" opacity="0.5">
-          <animate attributeName="r" values="8;12;8" dur="2s" begin="${i * 0.25}s" repeatCount="indefinite"/>
-        </circle>
+        <ellipse cx="300" cy="300" rx="180" ry="${Math.abs(Math.sin((i / 8) * Math.PI)) * 180}" 
+                 fill="none" stroke="rgba(85,228,255,0.3)" stroke-width="1" opacity="0.5"/>
       `;
     }).join('')}
     
-    <!-- Center core -->
-    <circle cx="250" cy="250" r="40" fill="rgba(216,255,94,0.4)" filter="url(#glow)">
-      <animate attributeName="r" values="40;45;40" dur="3s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.4;0.6;0.4" dur="3s" repeatCount="indefinite"/>
+    <!-- Orbital rings - animated -->
+    <ellipse cx="300" cy="300" rx="220" ry="100" fill="none" stroke="rgba(85,228,255,0.5)" stroke-width="2" filter="url(#softGlow)">
+      <animateTransform attributeName="transform" type="rotate" 
+                        from="0 300 300" to="360 300 300" dur="20s" repeatCount="indefinite"/>
+    </ellipse>
+    
+    <ellipse cx="300" cy="300" rx="220" ry="100" fill="none" stroke="rgba(216,255,94,0.4)" stroke-width="2" filter="url(#softGlow)">
+      <animateTransform attributeName="transform" type="rotate" 
+                        from="60 300 300" to="420 300 300" dur="16s" repeatCount="indefinite"/>
+    </ellipse>
+    
+    <ellipse cx="300" cy="300" rx="220" ry="100" fill="none" stroke="rgba(85,228,255,0.3)" stroke-width="2" filter="url(#softGlow)">
+      <animateTransform attributeName="transform" type="rotate" 
+                        from="-60 300 300" to="300 300 300" dur="24s" repeatCount="indefinite"/>
+    </ellipse>
+    
+    <!-- Connection nodes -->
+    ${[...Array(12)].map((_, i) => {
+      const angle = (i / 12) * Math.PI * 2;
+      const r = 180;
+      const x = 300 + Math.cos(angle) * r;
+      const y = 300 + Math.sin(angle) * r;
+      return `
+        <g>
+          <circle cx="${x}" cy="${y}" r="5" fill="rgba(216,255,94,0.8)" filter="url(#softGlow)">
+            <animate attributeName="r" values="5;8;5" dur="2s" begin="${i * 0.166}s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" begin="${i * 0.166}s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="${x}" cy="${y}" r="10" fill="none" stroke="rgba(85,228,255,0.6)" stroke-width="1">
+            <animate attributeName="r" values="10;15;10" dur="2s" begin="${i * 0.166}s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.6;0;0.6" dur="2s" begin="${i * 0.166}s" repeatCount="indefinite"/>
+          </circle>
+        </g>
+      `;
+    }).join('')}
+    
+    <!-- Energy core -->
+    <circle cx="300" cy="300" r="50" fill="url(#coreGradient)" filter="url(#premiumGlow)">
+      <animate attributeName="r" values="50;55;50" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    
+    <circle cx="300" cy="300" r="30" fill="rgba(216,255,94,0.6)">
+      <animate attributeName="r" values="30;35;30" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
     </circle>
   `;
   
   container.appendChild(svg);
+  
+  // Add holographic effect overlay
+  const holoEffect = document.createElement('div');
+  holoEffect.className = 'holo-effect';
+  container.appendChild(holoEffect);
 }
 
-// 2. THAY THẾ ORBITAL-ART: AI Atom Animation  
-function createAIAtom(container) {
+// 2. PREMIUM AI ATOM - Atomic structure animation
+function createPremiumAIAtom(container) {
   if (!container) return;
   
+  // Add energy rings
+  for (let i = 0; i < 3; i++) {
+    const ring = document.createElement('div');
+    ring.className = 'energy-ring';
+    ring.style.animationDelay = `${i * 1}s`;
+    container.appendChild(ring);
+  }
+  
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('viewBox', '0 0 200 200');
-  svg.setAttribute('style', 'width: 120px; height: 120px;');
+  svg.setAttribute('viewBox', '0 0 240 240');
   
   svg.innerHTML = `
     <defs>
-      <radialGradient id="coreGlow">
-        <stop offset="0%" style="stop-color:#55e4ff;stop-opacity:1" />
-        <stop offset="100%" style="stop-color:#d8ff5e;stop-opacity:0.6" />
+      <radialGradient id="atomCore">
+        <stop offset="0%" stop-color="rgb(85,228,255)" stop-opacity="1"/>
+        <stop offset="100%" stop-color="rgb(216,255,94)" stop-opacity="0.8"/>
       </radialGradient>
+      
+      <filter id="atomGlow">
+        <feGaussianBlur stdDeviation="4" result="blur"/>
+        <feMerge>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
     </defs>
     
-    <!-- Central core -->
-    <circle cx="100" cy="100" r="15" fill="url(#coreGlow)">
-      <animate attributeName="r" values="15;18;15" dur="2s" repeatCount="indefinite"/>
+    <!-- Nucleus -->
+    <circle cx="120" cy="120" r="20" fill="url(#atomCore)" filter="url(#atomGlow)">
+      <animate attributeName="r" values="20;24;20" dur="2s" repeatCount="indefinite"/>
     </circle>
     
     <!-- Electron orbits -->
-    <ellipse cx="100" cy="100" rx="60" ry="30" fill="none" stroke="rgba(85,228,255,0.4)" stroke-width="2">
-      <animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="3s" repeatCount="indefinite"/>
-    </ellipse>
-    
-    <ellipse cx="100" cy="100" rx="60" ry="30" fill="none" stroke="rgba(85,228,255,0.4)" stroke-width="2">
-      <animateTransform attributeName="transform" type="rotate" from="60 100 100" to="420 100 100" dur="3s" repeatCount="indefinite"/>
-    </ellipse>
-    
-    <ellipse cx="100" cy="100" rx="60" ry="30" fill="none" stroke="rgba(85,228,255,0.4)" stroke-width="2">
-      <animateTransform attributeName="transform" type="rotate" from="120 100 100" to="480 100 100" dur="3s" repeatCount="indefinite"/>
-    </ellipse>
-    
-    <!-- Electrons -->
-    ${[0, 120, 240].map(deg => `
-      <circle r="5" fill="#d8ff5e">
-        <animateMotion dur="3s" repeatCount="indefinite" path="M 100,100 m -60,0 a 60,30 0 1,0 120,0 a 60,30 0 1,0 -120,0">
-          <animateTransform attributeName="transform" type="rotate" from="${deg} 100 100" to="${deg} 100 100" dur="0s"/>
-        </animateMotion>
-      </circle>
+    ${[0, 60, 120].map(rotation => `
+      <g>
+        <ellipse cx="120" cy="120" rx="80" ry="40" fill="none" 
+                 stroke="rgba(85,228,255,0.5)" stroke-width="2" opacity="0.6">
+          <animateTransform attributeName="transform" type="rotate" 
+                            from="${rotation} 120 120" to="${rotation + 360} 120 120" 
+                            dur="4s" repeatCount="indefinite"/>
+        </ellipse>
+        
+        <!-- Electron -->
+        <circle r="6" fill="rgb(216,255,94)" filter="url(#atomGlow)">
+          <animateMotion dur="4s" repeatCount="indefinite">
+            <mpath href="#orbit${rotation}"/>
+          </animateMotion>
+          <animate attributeName="r" values="6;8;6" dur="1s" repeatCount="indefinite"/>
+        </circle>
+        
+        <path id="orbit${rotation}" d="M 120,120 m -80,0 a 80,40 0 1,0 160,0 a 80,40 0 1,0 -160,0" 
+              fill="none" opacity="0">
+          <animateTransform attributeName="transform" type="rotate" 
+                            from="${rotation} 120 120" to="${rotation + 360} 120 120" 
+                            dur="4s" repeatCount="indefinite"/>
+        </path>
+      </g>
     `).join('')}
+    
+    <!-- Particle traces -->
+    ${[...Array(6)].map((_, i) => {
+      const angle = (i / 6) * Math.PI * 2;
+      const x = 120 + Math.cos(angle) * 60;
+      const y = 120 + Math.sin(angle) * 60;
+      return `
+        <circle cx="${x}" cy="${y}" r="2" fill="rgba(85,228,255,0.6)">
+          <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" begin="${i * 0.25}s" repeatCount="indefinite"/>
+        </circle>
+      `;
+    }).join('')}
   `;
   
-  container.innerHTML = '';
   container.appendChild(svg);
+  
+  // Add scan lines effect
+  const scanLines = document.createElement('div');
+  scanLines.className = 'scan-lines';
+  container.appendChild(scanLines);
 }
 
-// 3. THAY THẾ SCAN-ART: Binary Code Scanner
-function createBinaryScanner(container) {
+// 3. PREMIUM BINARY SCANNER - Futuristic data visualization
+function createPremiumScanner(container) {
   if (!container) return;
   
+  // Add light beam
+  const beam = document.createElement('div');
+  beam.className = 'light-beam';
+  container.appendChild(beam);
+  
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('viewBox', '0 0 200 200');
-  svg.setAttribute('style', 'width: 120px; height: 120px;');
+  svg.setAttribute('viewBox', '0 0 240 240');
+  
+  const binaryChars = () => Math.random() > 0.5 ? '1' : '0';
+  const generateBinary = () => Array(10).fill(0).map(binaryChars).join(' ');
   
   svg.innerHTML = `
     <defs>
-      <linearGradient id="scanGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" style="stop-color:rgba(85,228,255,0);stop-opacity:0" />
-        <stop offset="50%" style="stop-color:rgba(85,228,255,0.8);stop-opacity:1" />
-        <stop offset="100%" style="stop-color:rgba(85,228,255,0);stop-opacity:0" />
+      <linearGradient id="scanGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="rgba(85,228,255,0)" stop-opacity="0"/>
+        <stop offset="50%" stop-color="rgba(85,228,255,1)" stop-opacity="1"/>
+        <stop offset="100%" stop-color="rgba(85,228,255,0)" stop-opacity="0"/>
       </linearGradient>
+      
+      <filter id="scanGlow">
+        <feGaussianBlur stdDeviation="2" result="blur"/>
+        <feMerge>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
     </defs>
     
-    <!-- Frame border -->
-    <rect x="30" y="30" width="140" height="140" fill="rgba(10,20,40,0.5)" stroke="rgba(85,228,255,0.3)" stroke-width="2" rx="8"/>
+    <!-- Frame -->
+    <rect x="30" y="30" width="180" height="180" rx="12" 
+          fill="rgba(10,20,40,0.7)" stroke="rgba(85,228,255,0.5)" stroke-width="2"/>
     
-    <!-- Binary code lines -->
-    ${[...Array(6)].map((_, i) => `
-      <text x="50" y="${50 + i * 20}" font-family="monospace" font-size="12" fill="rgba(216,255,94,0.6)">
-        ${Math.random().toString(2).substr(2, 8)}
-        <animate attributeName="opacity" values="0.6;1;0.6" dur="1s" begin="${i * 0.2}s" repeatCount="indefinite"/>
+    <!-- Inner frame -->
+    <rect x="40" y="40" width="160" height="160" rx="8" 
+          fill="none" stroke="rgba(85,228,255,0.2)" stroke-width="1"/>
+    
+    <!-- Binary data streams -->
+    ${[...Array(8)].map((_, i) => `
+      <text x="60" y="${60 + i * 20}" font-family="'Courier New', monospace" 
+            font-size="10" fill="rgba(216,255,94,0.8)" letter-spacing="2">
+        ${generateBinary()}
+        <animate attributeName="opacity" values="0.8;1;0.3;1;0.8" 
+                 dur="3s" begin="${i * 0.3}s" repeatCount="indefinite"/>
       </text>
     `).join('')}
     
     <!-- Scan line -->
-    <rect x="30" y="30" width="140" height="10" fill="url(#scanGradient)">
-      <animate attributeName="y" values="30;160;30" dur="3s" repeatCount="indefinite"/>
+    <rect x="30" y="40" width="180" height="8" fill="url(#scanGrad)" filter="url(#scanGlow)">
+      <animate attributeName="y" values="40;190;40" dur="4s" repeatCount="indefinite"/>
     </rect>
     
-    <!-- Corner markers -->
-    <path d="M 30,30 L 50,30 M 30,30 L 30,50" stroke="#55e4ff" stroke-width="3" stroke-linecap="round"/>
-    <path d="M 170,30 L 150,30 M 170,30 L 170,50" stroke="#55e4ff" stroke-width="3" stroke-linecap="round"/>
-    <path d="M 30,170 L 50,170 M 30,170 L 30,150" stroke="#55e4ff" stroke-width="3" stroke-linecap="round"/>
-    <path d="M 170,170 L 150,170 M 170,170 L 170,150" stroke="#55e4ff" stroke-width="3" stroke-linecap="round"/>
+    <!-- Corner brackets -->
+    ${[
+      {x: 30, y: 30, path: 'M 0,20 L 0,0 L 20,0'},
+      {x: 190, y: 30, path: 'M 20,0 L 0,0 L 0,20'},
+      {x: 30, y: 190, path: 'M 0,0 L 0,20 L 20,20'},
+      {x: 190, y: 190, path: 'M 0,20 L 20,20 L 20,0'}
+    ].map(bracket => `
+      <path d="${bracket.path}" transform="translate(${bracket.x}, ${bracket.y})" 
+            stroke="rgb(85,228,255)" stroke-width="3" fill="none" stroke-linecap="round">
+        <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
+      </path>
+    `).join('')}
+    
+    <!-- Center crosshair -->
+    <circle cx="120" cy="120" r="15" fill="none" stroke="rgba(85,228,255,0.6)" stroke-width="1">
+      <animate attributeName="r" values="15;18;15" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <line x1="120" y1="105" x2="120" y2="135" stroke="rgba(85,228,255,0.6)" stroke-width="1"/>
+    <line x1="105" y1="120" x2="135" y2="120" stroke="rgba(85,228,255,0.6)" stroke-width="1"/>
   `;
   
-  container.innerHTML = '';
   container.appendChild(svg);
+  
+  // Add holographic overlay
+  const holo = document.createElement('div');
+  holo.className = 'holo-effect';
+  container.appendChild(holo);
 }
 
-// Initialize all visuals
-function initVisuals() {
+// Initialize all premium visuals
+function initPremiumVisuals() {
+  console.log('🎨 Initializing premium visuals...');
+  
   // 1. Hero globe
-  createHeroGlobe();
+  createPremiumGlobe();
   
-  // 2. AI Apps atom (ecosystem page)
-  const aiCard = document.querySelector('.product-card.ai .orbital-art');
-  if (aiCard) {
-    createAIAtom(aiCard);
+  // 2. AI Apps atom
+  const aiContainer = document.querySelector('.product-card.ai .orbital-art');
+  if (aiContainer) {
+    createPremiumAIAtom(aiContainer);
   }
   
-  // 3. Mobile Apps scanner (ecosystem page)
-  const mobileCard = document.querySelector('.product-card.mobile .scan-art');
-  if (mobileCard) {
-    createBinaryScanner(mobileCard);
+  // 3. Mobile Apps scanner
+  const scanContainer = document.querySelector('.product-card.mobile .scan-art');
+  if (scanContainer) {
+    createPremiumScanner(scanContainer);
   }
   
-  console.log('✅ All visual effects loaded');
+  console.log('✅ Premium visuals loaded successfully!');
 }
 
-// Auto-run when DOM ready
+// Auto-initialize
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initVisuals);
+  document.addEventListener('DOMContentLoaded', initPremiumVisuals);
 } else {
-  initVisuals();
+  initPremiumVisuals();
 }
