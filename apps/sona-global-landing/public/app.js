@@ -124,35 +124,130 @@ function setMetricAnimations() {
 }
 
 function setInteractiveMotion() {
+  // Tối ưu tilt effect với throttle
   document.querySelectorAll("[data-tilt]").forEach((card) => {
+    let tiltRAF = null;
+    
     card.addEventListener("pointermove", (event) => {
-      const rect = card.getBoundingClientRect();
-      card.style.setProperty("--tilt-y", `${((event.clientX - rect.left) / rect.width - .5) * 5}deg`);
-      card.style.setProperty("--tilt-x", `${((event.clientY - rect.top) / rect.height - .5) * -4}deg`);
+      if (tiltRAF) return; // Skip nếu đang xử lý frame trước
+      
+      tiltRAF = requestAnimationFrame(() => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty("--tilt-y", `${((event.clientX - rect.left) / rect.width - .5) * 5}deg`);
+        card.style.setProperty("--tilt-x", `${((event.clientY - rect.top) / rect.height - .5) * -4}deg`);
+        tiltRAF = null;
+      });
     });
-    card.addEventListener("pointerleave", () => { card.style.setProperty("--tilt-y", "0deg"); card.style.setProperty("--tilt-x", "0deg"); });
+    
+    card.addEventListener("pointerleave", () => { 
+      if (tiltRAF) cancelAnimationFrame(tiltRAF);
+      tiltRAF = null;
+      card.style.setProperty("--tilt-y", "0deg"); 
+      card.style.setProperty("--tilt-x", "0deg"); 
+    });
   });
+  
+  // Throttle parallax scroll - chỉ chạy mỗi 16ms (~60fps)
   const parallax = document.querySelectorAll("[data-parallax]");
-  const move = () => parallax.forEach((element) => element.style.transform = `translateY(${window.scrollY * Number(element.dataset.parallax)}px)`);
-  window.addEventListener("scroll", move, { passive: true });
+  let scrollRAF = null;
+  let lastScrollY = window.scrollY;
+  
+  const move = () => {
+    if (lastScrollY === window.scrollY) return; // Skip nếu không scroll
+    lastScrollY = window.scrollY;
+    parallax.forEach((element) => element.style.transform = `translateY(${window.scrollY * Number(element.dataset.parallax)}px)`);
+  };
+  
+  const throttledScroll = () => {
+    if (scrollRAF) return; // Skip nếu đang xử lý frame trước
+    scrollRAF = requestAnimationFrame(() => {
+      move();
+      scrollRAF = null;
+    });
+  };
+  
+  window.addEventListener("scroll", throttledScroll, { passive: true });
   move();
 }
 
 function drawNetwork() {
   const canvas = document.querySelector("#network");
   if (!canvas || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  const context = canvas.getContext("2d");
-  const points = Array.from({ length: 42 }, () => ({ x: Math.random(), y: Math.random(), vx: (Math.random() - .5) * .00022, vy: (Math.random() - .5) * .00022 }));
-  const resize = () => { canvas.width = window.innerWidth * devicePixelRatio; canvas.height = window.innerHeight * devicePixelRatio; canvas.style.width = `${window.innerWidth}px`; canvas.style.height = `${window.innerHeight}px`; context.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0); };
-  const render = () => {
+  const context = canvas.getContext("2d", { alpha: true, desynchronized: true }); // Tối ưu context
+  const points = Array.from({ length: 32 }, () => ({ x: Math.random(), y: Math.random(), vx: (Math.random() - .5) * .00022, vy: (Math.random() - .5) * .00022 })); // Giảm từ 42 xuống 32 points
+  
+  let resizeRAF = null;
+  const resize = () => { 
+    if (resizeRAF) return;
+    resizeRAF = requestAnimationFrame(() => {
+      canvas.width = window.innerWidth * devicePixelRatio; 
+      canvas.height = window.innerHeight * devicePixelRatio; 
+      canvas.style.width = `${window.innerWidth}px`; 
+      canvas.style.height = `${window.innerHeight}px`; 
+      context.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+      resizeRAF = null;
+    });
+  };
+  
+  let lastFrameTime = 0;
+  const targetFPS = 30; // Giảm từ 60fps xuống 30fps để tiết kiệm CPU
+  const frameInterval = 1000 / targetFPS;
+  
+  const render = (currentTime) => {
+    const elapsed = currentTime - lastFrameTime;
+    
+    // Throttle to 30fps thay vì 60fps
+    if (elapsed < frameInterval) {
+      requestAnimationFrame(render);
+      return;
+    }
+    
+    lastFrameTime = currentTime - (elapsed % frameInterval);
+    
     const width = window.innerWidth, height = window.innerHeight;
     context.clearRect(0, 0, width, height);
-    points.forEach((point) => { point.x += point.vx; point.y += point.vy; if (point.x < 0 || point.x > 1) point.vx *= -1; if (point.y < 0 || point.y > 1) point.vy *= -1; });
-    for (let i = 0; i < points.length; i += 1) for (let j = i + 1; j < points.length; j += 1) { const a = points[i], b = points[j], dx = (a.x - b.x) * width, dy = (a.y - b.y) * height, d = Math.hypot(dx, dy); if (d < 145) { context.strokeStyle = `rgba(85,228,255,${.08 * (1 - d / 145)})`; context.beginPath(); context.moveTo(a.x * width, a.y * height); context.lineTo(b.x * width, b.y * height); context.stroke(); } }
-    points.forEach((point) => { context.fillStyle = "rgba(216,255,94,.32)"; context.beginPath(); context.arc(point.x * width, point.y * height, 1.2, 0, Math.PI * 2); context.fill(); });
+    
+    // Cập nhật vị trí points
+    points.forEach((point) => { 
+      point.x += point.vx; 
+      point.y += point.vy; 
+      if (point.x < 0 || point.x > 1) point.vx *= -1; 
+      if (point.y < 0 || point.y > 1) point.vy *= -1; 
+    });
+    
+    // Vẽ đường nối (giảm khoảng cách tối đa xuống 120px để ít đường hơn)
+    const maxDistance = 120;
+    for (let i = 0; i < points.length; i += 1) {
+      for (let j = i + 1; j < points.length; j += 1) { 
+        const a = points[i], b = points[j];
+        const dx = (a.x - b.x) * width;
+        const dy = (a.y - b.y) * height;
+        const d = Math.hypot(dx, dy);
+        
+        if (d < maxDistance) { 
+          context.strokeStyle = `rgba(85,228,255,${.08 * (1 - d / maxDistance)})`; 
+          context.beginPath(); 
+          context.moveTo(a.x * width, a.y * height); 
+          context.lineTo(b.x * width, b.y * height); 
+          context.stroke(); 
+        } 
+      }
+    }
+    
+    // Vẽ các điểm
+    points.forEach((point) => { 
+      context.fillStyle = "rgba(216,255,94,.32)"; 
+      context.beginPath(); 
+      context.arc(point.x * width, point.y * height, 1.2, 0, Math.PI * 2); 
+      context.fill(); 
+    });
+    
     requestAnimationFrame(render);
   };
-  resize(); window.addEventListener("resize", resize); render();
+  
+  resize(); 
+  window.addEventListener("resize", resize); 
+  requestAnimationFrame(render);
 }
 
 function setContactForm() {
