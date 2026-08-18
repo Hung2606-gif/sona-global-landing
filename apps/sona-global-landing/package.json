@@ -6,6 +6,10 @@
   "scripts": {
     "dev": "node server.mjs",
     "start": "node server.mjs",
+    "build": "echo 'No build needed - static site'",
     "check": "node --check server.mjs && node --check public/app.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
