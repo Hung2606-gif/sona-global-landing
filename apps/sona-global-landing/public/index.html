@@ -10,7 +10,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./styles.css" />
-    <link rel="stylesheet" href="./epic-animations.css" />
   </head>
   <body data-page="about">
     <canvas id="network" aria-hidden="true"></canvas><div class="noise" aria-hidden="true"></div>
@@ -24,21 +23,8 @@
           <a class="hero-cta reveal reveal-delay-3" href="./ecosystem.html"><span data-i18n data-vi="Khám phá Ecosystem" data-en="Explore our ecosystem">Khám phá Ecosystem</span> <b>↗</b></a>
         </div>
         <figure class="hero-art reveal reveal-delay-2" data-parallax="0.018">
-          <div class="animated-globe">
-            <div class="globe-sphere"></div>
-            <div class="globe-connections">
-              <div class="connection-line"></div>
-              <div class="connection-line"></div>
-              <div class="connection-line"></div>
-              <div class="connection-line"></div>
-            </div>
-            <div class="globe-node"></div>
-            <div class="globe-node"></div>
-            <div class="globe-node"></div>
-            <div class="globe-node"></div>
-            <div class="globe-node"></div>
-            <div class="globe-node"></div>
-          </div>
+          <!-- Hero SVG sẽ được generate bằng JS -->
+          <div id="hero-visual"></div>
           <figcaption>Built in Vietnam · Scaling globally</figcaption>
         </figure>
       </section>
@@ -116,7 +102,7 @@
       </section>
     </main>
     <footer id="site-footer"></footer>
-    <script src="./animation-generator.js"></script>
-    <script type="module" src="./app.js?v=20260817-4"></script>
+    <script src="./visuals.js"></script>
+    <script type="module" src="./app.js"></script>
   </body>
 </html>
