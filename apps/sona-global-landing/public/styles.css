@@ -396,6 +396,61 @@
 
 @media(max-width:720px){.section{width:min(100% - 36px,600px);padding:79px 0}.site-header{height:66px}.nav-shell{width:calc(100% - 36px);flex-direction:column;align-items:flex-start}.nav-actions{width:100%;justify-content:space-between;order:-1}.nav-links{position:fixed;top:66px;left:0;right:0;display:none;flex-direction:column;align-items:flex-start;gap:18px;padding:20px 18px;background:rgba(6,10,18,.98);border-bottom:1px solid var(--line);z-index:50}.nav-links.open{display:flex}.nav-dropdown .dropdown-content{position:static;margin-top:0;box-shadow:none;border:none;padding-left:16px}.nav-toggle{display:block}.nav-actions{margin-left:0}.nav-cta{display:none}.page-hero{min-height:auto;grid-template-columns:1fr;padding-top:68px;padding-bottom:65px}.module-hero,.publishing-hero,.share-hero,.library-hero,.contact-hero{min-height:auto}.hero-title{font-size:clamp(42px,13vw,60px)}.hero-art{margin-top:10px}.hero-art img{min-height:280px}.hero-lead{font-size:14px}.split-heading,.data-panel,.community-panel,.library-note,.contact-layout{grid-template-columns:1fr;gap:30px}.metrics-grid,.product-grid,.value-grid,.feature-grid,.resource-grid,.story-list{grid-template-columns:1fr;margin-top:40px}.metric-card{min-height:160px}.metric-card strong{margin-top:25px}.data-panel>img{min-height:260px}.data-copy{padding:28px}.data-points p{grid-template-columns:1fr;gap:5px}.journey-list{grid-template-columns:1fr 1fr}.journey-list li{min-height:165px}.quote-orbit,.library-stack,.contact-pulse{height:280px;width:280px}.quote-orbit b,.library-stack b{font-size:28px}.office-grid{grid-template-columns:1fr}.footer-shell{width:calc(100% - 36px);align-items:flex-start;flex-direction:column}.footer-links{flex-wrap:wrap}.chat-toggle{right:18px;bottom:18px}.chat-panel{right:18px;bottom:66px}.reveal-delay-1,.reveal-delay-2,.reveal-delay-3{transition-delay:0s}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
 
+/* Animated illustrations for the site-wide headline metrics. */
+.metric-card.has-metric-motion {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.metric-card.has-metric-motion > :not(.metric-card__motion) {
+  position: relative;
+  z-index: 1;
+}
+
+.metric-card__motion {
+  position: absolute;
+  z-index: 0;
+  right: -22px;
+  bottom: -17px;
+  width: 142px;
+  height: 112px;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.metric-card__motion > span,
+.metric-card__motion span > i,
+.metric-card__motion span > b {
+  position: absolute;
+  display: block;
+  box-sizing: border-box;
+}
+
+/* Ecosystem: orbiting product tiles. */
+.metric-motion-products { inset: 4px; border: 1px solid rgba(85, 228, 255, .35); border-radius: 50%; animation: metric-product-orbit 8s linear infinite paused; }
+.metric-motion-products::after { position: absolute; inset: 21px; content: ""; border: 1px solid rgba(216, 255, 94, .38); border-radius: 50%; }
+.metric-motion-products i { width: 12px; height: 12px; border-radius: 3px; background: var(--cyan); box-shadow: 0 0 12px var(--cyan); animation: metric-product-tile 2.8s ease-in-out infinite paused; }.metric-motion-products i:nth-child(1) { left: 9px; top: 30px; }.metric-motion-products i:nth-child(2) { right: 9px; bottom: 24px; background: var(--lime); box-shadow: 0 0 12px var(--lime); animation-delay: -.95s; }.metric-motion-products i:nth-child(3) { right: 33px; top: 7px; background: var(--violet); box-shadow: 0 0 12px var(--violet); animation-delay: -1.9s; }.metric-motion-products b { inset: 44px; border-radius: 50%; background: rgba(85, 228, 255, .36); animation: metric-product-core 2.3s ease-in-out infinite paused; }
+
+/* Audience: a small global presence map with a travelling signal. */
+.metric-motion-audience { inset: 5px; border: 1px solid rgba(173, 141, 255, .46); border-radius: 50%; overflow: hidden; animation: metric-audience-globe 7s linear infinite paused; }
+.metric-motion-audience::before, .metric-motion-audience::after { position: absolute; content: ""; border: 1px solid rgba(85, 228, 255, .32); border-radius: 50%; }.metric-motion-audience::before { inset: 20px -4px; }.metric-motion-audience::after { inset: -4px 20px; }
+.metric-motion-audience i { height: 1px; left: 0; right: 0; background: rgba(216, 255, 94, .5); }.metric-motion-audience i:nth-child(1) { top: 37px; }.metric-motion-audience i:nth-child(2) { top: 72px; background: rgba(85, 228, 255, .36); }.metric-motion-audience b { width: 8px; height: 8px; left: 5px; top: 41px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 13px var(--lime); animation: metric-audience-signal 3.4s linear infinite paused; }
+
+/* Research: falling data packets across a live processing field. */
+.metric-motion-research { inset: 4px 15px; overflow: hidden; border-left: 1px solid rgba(216, 255, 94, .3); border-right: 1px solid rgba(216, 255, 94, .3); background: repeating-linear-gradient(90deg, transparent 0 18px, rgba(85, 228, 255, .07) 18px 19px); }
+.metric-motion-research i { width: 10px; height: 28px; top: -30px; border-radius: 7px; background: linear-gradient(var(--lime), transparent); box-shadow: 0 0 12px rgba(216, 255, 94, .44); animation: metric-data-rain 3.3s linear infinite paused; }.metric-motion-research i:nth-child(1) { left: 13px; }.metric-motion-research i:nth-child(2) { left: 43px; background: linear-gradient(var(--cyan), transparent); animation-delay: -.8s; }.metric-motion-research i:nth-child(3) { left: 72px; background: linear-gradient(var(--violet), transparent); animation-delay: -1.6s; }.metric-motion-research i:nth-child(4) { left: 101px; animation-delay: -2.4s; }.metric-motion-research b { left: 18px; right: 18px; bottom: 13px; height: 1px; background: var(--cyan); box-shadow: 0 0 12px var(--cyan); animation: metric-research-scan 2.5s ease-in-out infinite paused; }
+
+.metric-card.is-animated .metric-card__motion * { animation-play-state: running; }
+
+@keyframes metric-product-orbit { to { transform: rotate(360deg); } }
+@keyframes metric-product-tile { 50% { transform: scale(1.7) rotate(90deg); opacity: .4; } }
+@keyframes metric-product-core { 50% { transform: scale(1.55); opacity: .34; } }
+@keyframes metric-audience-globe { to { transform: rotateY(360deg); } }
+@keyframes metric-audience-signal { to { transform: translateX(113px); } }
+@keyframes metric-data-rain { to { transform: translateY(143px); } }
+@keyframes metric-research-scan { 50% { transform: translateY(-72px); opacity: .42; } }
+
 /* Improved font sizes for better harmony */
 .product-info h3 {
   font-size: 32px !important;
@@ -656,6 +711,4 @@
 .footer-links a {
   font-size: 12px !important;
 }
-
-
 

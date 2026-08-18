@@ -123,6 +123,112 @@ function setMetricAnimations() {
   cards.forEach((card) => observer.observe(card));
 }
 
+const statMotionKinds = [
+  [/DATABRICKS VALUATION/, "candles"],
+  [/COMPLETION TIME/, "timeline"],
+  [/HUMAN INTERVENTION/, "verification"],
+  [/AI AGENT MARKET/, "circuit"],
+  [/BRINK LIST/, "selection"],
+  [/AI SAFETY INVESTMENT/, "growth"],
+  [/AVERAGE SERIES A/, "funding"],
+  [/PARADIGM SHIFT/, "segments"],
+  [/AI TOOL CONSOLIDATION/, "merge"],
+  [/AI ENERGY CONSUMPTION/, "wave"],
+  [/THỐNG KÊ FUNDING/, "inflow"],
+  [/ANTHROPIC VALUATION/, "ramp"],
+  [/NEW BILLIONAIRES/, "constellation"],
+  [/CHINA AI CHIP/, "chip"],
+  [/ENTERPRISE AI ADOPTION/, "gauge"],
+  [/AI GOVERNANCE/, "shield"],
+];
+
+function getStatMotionKind(visual, index) {
+  const label = visual.querySelector("h4")?.textContent?.toUpperCase() || "";
+  return statMotionKinds.find(([pattern]) => pattern.test(label))?.[1] || ["growth", "orbit", "wave"][index % 3];
+}
+
+function statMotionMarkup(kind) {
+  const templates = {
+    candles: "<span class=\"motion-candles\"><i></i><i></i><i></i><i></i><i></i></span><span class=\"motion-spark motion-spark--one\"></span><span class=\"motion-spark motion-spark--two\"></span>",
+    timeline: "<span class=\"motion-timeline\"><i></i><i></i><i></i><i></i><b></b></span><span class=\"motion-clock\"></span>",
+    verification: "<span class=\"motion-verification\"><i>✓</i><i>✓</i><i>✓</i><b>✓</b></span><span class=\"motion-verify-line\"></span>",
+    circuit: "<svg class=\"motion-circuit\" viewBox=\"0 0 220 150\" fill=\"none\"><path d=\"M16 111 H59 V68 H104 V34 H186\"/><path d=\"M28 34 H75 V110 H155 V76 H202\"/><circle cx=\"59\" cy=\"111\" r=\"5\"/><circle cx=\"104\" cy=\"68\" r=\"5\"/><circle cx=\"155\" cy=\"110\" r=\"5\"/><circle class=\"motion-circuit__beacon\" cx=\"186\" cy=\"34\" r=\"8\"/></svg>",
+    selection: "<span class=\"motion-selection\"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><b></b></span>",
+    growth: "<svg class=\"motion-growth\" viewBox=\"0 0 220 150\" fill=\"none\"><path d=\"M9 124 C30 116 37 82 55 95 S80 111 98 67 S126 95 145 55 S174 80 194 28 S208 40 214 18\"/><circle cx=\"55\" cy=\"95\" r=\"3\"/><circle cx=\"145\" cy=\"55\" r=\"3\"/><circle cx=\"214\" cy=\"18\" r=\"4\"/></svg><span class=\"motion-growth-glow\"></span>",
+    funding: "<span class=\"motion-funding\"><i></i><i></i><i></i><i></i><b>$</b></span><span class=\"motion-funding-line\"></span>",
+    segments: "<span class=\"motion-segments\"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><b>8</b></span>",
+    merge: "<svg class=\"motion-merge\" viewBox=\"0 0 220 150\" fill=\"none\"><path d=\"M10 25 C78 25 64 74 145 74 H210\"/><path d=\"M10 75 H210\"/><path d=\"M10 125 C78 125 64 76 145 76 H210\"/><circle cx=\"182\" cy=\"75\" r=\"12\"/></svg>",
+    wave: "<span class=\"motion-wave motion-wave--one\"></span><span class=\"motion-wave motion-wave--two\"></span><span class=\"motion-wave motion-wave--three\"></span><span class=\"motion-energy-core\"></span>",
+    inflow: "<span class=\"motion-inflow\"><i></i><i></i><i></i><b></b></span><span class=\"motion-inflow-pulse\"></span>",
+    ramp: "<span class=\"motion-ramp\"><i></i><i></i><i></i><i></i><i></i><b></b></span><span class=\"motion-ramp-dot\"></span>",
+    constellation: "<svg class=\"motion-constellation\" viewBox=\"0 0 220 150\" fill=\"none\"><path d=\"M25 115 L58 53 L112 88 L166 32 L201 83 L112 88 L25 115\"/><circle cx=\"25\" cy=\"115\" r=\"5\"/><circle cx=\"58\" cy=\"53\" r=\"5\"/><circle cx=\"112\" cy=\"88\" r=\"5\"/><circle cx=\"166\" cy=\"32\" r=\"6\"/><circle cx=\"201\" cy=\"83\" r=\"5\"/></svg><span class=\"motion-star motion-star--one\"></span><span class=\"motion-star motion-star--two\"></span>",
+    chip: "<span class=\"motion-chip\"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><b>AI</b></span><span class=\"motion-chip-scan\"></span>",
+    gauge: "<span class=\"motion-gauge\"><i></i><b></b></span><span class=\"motion-gauge-needle\"></span>",
+    shield: "<span class=\"motion-shield\"><i>✓</i></span><span class=\"motion-shield-ring motion-shield-ring--one\"></span><span class=\"motion-shield-ring motion-shield-ring--two\"></span>",
+    orbit: "<span class=\"motion-orbit\"><i></i><i></i><b></b></span>",
+  };
+  return templates[kind] || templates.growth;
+}
+
+function metricMotionMarkup(kind) {
+  const templates = {
+    products: "<span class=\"metric-motion-products\"><i></i><i></i><i></i><b></b></span>",
+    audience: "<span class=\"metric-motion-audience\"><i></i><i></i><b></b></span>",
+    research: "<span class=\"metric-motion-research\"><i></i><i></i><i></i><i></i><b></b></span>",
+  };
+  return templates[kind];
+}
+
+function setAnimatedDataVisuals() {
+  const statVisuals = document.querySelectorAll(".stats-visual");
+  const metricCards = document.querySelectorAll(".metric-card");
+  const animatedElements = [];
+
+  statVisuals.forEach((visual, index) => {
+    if (visual.querySelector(".stats-motion")) return;
+
+    const copy = document.createElement("div");
+    copy.className = "stats-copy";
+    while (visual.firstChild) copy.append(visual.firstChild);
+
+    const motion = document.createElement("div");
+    const kind = getStatMotionKind(visual, index);
+    motion.className = `stats-motion stats-motion--${kind}`;
+    motion.setAttribute("aria-hidden", "true");
+    motion.innerHTML = statMotionMarkup(kind);
+
+    visual.classList.add("has-motion", `stats-visual--${kind}`);
+    visual.append(copy, motion);
+    animatedElements.push(visual);
+  });
+
+  metricCards.forEach((card, index) => {
+    if (card.querySelector(".metric-card__motion")) return;
+
+    const motion = document.createElement("div");
+    const kind = ["products", "audience", "research"][index % 3];
+    motion.className = `metric-card__motion metric-card__motion--${kind}`;
+    motion.setAttribute("aria-hidden", "true");
+    motion.innerHTML = metricMotionMarkup(kind);
+    card.classList.add("has-metric-motion");
+    card.append(motion);
+    animatedElements.push(card);
+  });
+
+  if (!animatedElements.length) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
+    animatedElements.forEach((element) => element.classList.add("is-animated"));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add("is-animated");
+    observer.unobserve(entry.target);
+  }), { threshold: .2 });
+  animatedElements.forEach((element) => observer.observe(element));
+}
+
 function setInteractiveMotion() {
   // Tối ưu tilt effect với throttle
   document.querySelectorAll("[data-tilt]").forEach((card) => {
@@ -316,6 +422,7 @@ translatePage();
 renderChrome();
 setRevealAnimations();
 setMetricAnimations();
+setAnimatedDataVisuals();
 setInteractiveMotion();
 setContactForm();
 drawNetwork();
