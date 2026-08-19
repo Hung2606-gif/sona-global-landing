@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ============================================
-// HERO VISUAL - Premium 3D Globe
+// HERO VISUAL - Advanced 3D Network Globe
 // ============================================
 function initHeroVisual() {
   const container = document.getElementById('hero-visual');
@@ -24,41 +24,62 @@ function initHeroVisual() {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   svg.setAttribute('viewBox', '0 0 600 600');
   svg.setAttribute('class', 'premium-globe');
+  svg.style.filter = 'drop-shadow(0 0 40px rgba(85, 228, 255, 0.3))';
   
   // Defs for gradients and filters
   const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
   
-  // Radial gradient for sphere
+  // Radial gradient for sphere - more vibrant
   const gradientSphere = document.createElementNS('http://www.w3.org/2000/svg', 'radialGradient');
   gradientSphere.setAttribute('id', 'sphereGradient');
   gradientSphere.innerHTML = `
-    <stop offset="0%" stop-color="#55e4ff" stop-opacity="0.6"/>
-    <stop offset="50%" stop-color="#0064c8" stop-opacity="0.4"/>
-    <stop offset="100%" stop-color="#001f3f" stop-opacity="0.8"/>
+    <stop offset="0%" stop-color="#55e4ff" stop-opacity="0.8"/>
+    <stop offset="40%" stop-color="#0084ff" stop-opacity="0.6"/>
+    <stop offset="100%" stop-color="#001f3f" stop-opacity="0.9"/>
   `;
   
-  // Glow filter
+  // Enhanced glow filter
   const filter = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
   filter.setAttribute('id', 'glow');
   filter.innerHTML = `
-    <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+    <feGaussianBlur stdDeviation="12" result="coloredBlur"/>
     <feMerge>
+      <feMergeNode in="coloredBlur"/>
       <feMergeNode in="coloredBlur"/>
       <feMergeNode in="SourceGraphic"/>
     </feMerge>
   `;
   
+  // Holographic shimmer filter
+  const shimmerFilter = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
+  shimmerFilter.setAttribute('id', 'shimmer');
+  shimmerFilter.innerHTML = `
+    <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="3" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+  `;
+  
   defs.appendChild(gradientSphere);
   defs.appendChild(filter);
+  defs.appendChild(shimmerFilter);
   svg.appendChild(defs);
   
-  // Main sphere
+  // Main sphere with double layer for depth
+  const sphereOuter = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  sphereOuter.setAttribute('cx', '300');
+  sphereOuter.setAttribute('cy', '300');
+  sphereOuter.setAttribute('r', '205');
+  sphereOuter.setAttribute('fill', 'none');
+  sphereOuter.setAttribute('stroke', 'rgba(85, 228, 255, 0.3)');
+  sphereOuter.setAttribute('stroke-width', '2');
+  sphereOuter.setAttribute('filter', 'url(#glow)');
+  svg.appendChild(sphereOuter);
+  
   const sphere = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
   sphere.setAttribute('cx', '300');
   sphere.setAttribute('cy', '300');
   sphere.setAttribute('r', '200');
   sphere.setAttribute('fill', 'url(#sphereGradient)');
-  sphere.setAttribute('filter', 'url(#glow)');
+  sphere.setAttribute('filter', 'url(#shimmer)');
   svg.appendChild(sphere);
   
   // Grid pattern overlay
@@ -85,75 +106,170 @@ function initHeroVisual() {
   gridOverlay.setAttribute('opacity', '0.3');
   svg.appendChild(gridOverlay);
   
-  // Orbital rings
-  for (let i = 0; i < 3; i++) {
+  // Enhanced orbital rings with gradients
+  for (let i = 0; i < 4; i++) {
+    const rx = 220 + i * 35;
     const ring = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
-    const rx = 220 + i * 40;
     ring.setAttribute('cx', '300');
     ring.setAttribute('cy', '300');
     ring.setAttribute('rx', rx);
-    ring.setAttribute('ry', rx * 0.3);
+    ring.setAttribute('ry', rx * 0.25);
     ring.setAttribute('fill', 'none');
-    ring.setAttribute('stroke', 'rgba(85, 228, 255, 0.3)');
-    ring.setAttribute('stroke-width', '2');
+    ring.setAttribute('stroke', i % 2 === 0 ? 'rgba(85, 228, 255, 0.4)' : 'rgba(216, 255, 94, 0.3)');
+    ring.setAttribute('stroke-width', '1.5');
+    ring.setAttribute('stroke-dasharray', '10 5');
     ring.style.transformOrigin = '300px 300px';
-    ring.style.animation = `ringRotate${i} ${8 + i * 2}s linear infinite`;
+    ring.style.animation = `ringRotate${i} ${6 + i * 2}s linear infinite`;
+    ring.style.opacity = '0';
+    ring.style.animationDelay = `${i * 0.3}s`;
     svg.appendChild(ring);
     
-    // Add CSS animation
+    // Add CSS animation with fade in
     const style = document.createElement('style');
     style.textContent = `
       @keyframes ringRotate${i} {
-        from { transform: rotateX(60deg) rotateZ(0deg); }
-        to { transform: rotateX(60deg) rotateZ(360deg); }
+        0% { 
+          transform: rotateX(65deg) rotateZ(0deg);
+          opacity: 0;
+        }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { 
+          transform: rotateX(65deg) rotateZ(360deg);
+          opacity: 0;
+        }
       }
     `;
     document.head.appendChild(style);
   }
   
-  // Particle field around globe
-  for (let i = 0; i < 40; i++) {
-    const particle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    const angle = (i / 40) * Math.PI * 2;
-    const radius = 220 + Math.random() * 80;
+  // Enhanced particle field with connecting lines
+  const particles = [];
+  for (let i = 0; i < 50; i++) {
+    const angle = (i / 50) * Math.PI * 2;
+    const radius = 220 + Math.random() * 100;
     const cx = 300 + Math.cos(angle) * radius;
-    const cy = 300 + Math.sin(angle) * radius * 0.3;
+    const cy = 300 + Math.sin(angle) * radius * 0.35;
     
+    particles.push({ cx, cy, angle, radius });
+    
+    const particle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
     particle.setAttribute('cx', cx);
     particle.setAttribute('cy', cy);
-    particle.setAttribute('r', Math.random() * 3 + 1);
-    particle.setAttribute('fill', i % 2 === 0 ? '#55e4ff' : '#d8ff5e');
-    particle.setAttribute('opacity', Math.random() * 0.5 + 0.3);
-    particle.style.animation = `particleBlink ${2 + Math.random() * 2}s ease-in-out infinite`;
+    particle.setAttribute('r', Math.random() * 2.5 + 1.5);
+    
+    const colors = ['#55e4ff', '#d8ff5e', '#ad8dff'];
+    particle.setAttribute('fill', colors[i % 3]);
+    particle.setAttribute('opacity', Math.random() * 0.6 + 0.4);
+    particle.setAttribute('filter', 'url(#glow)');
+    particle.style.animation = `particleBlink ${1.5 + Math.random() * 2}s ease-in-out infinite`;
     particle.style.animationDelay = `${Math.random() * 2}s`;
     svg.appendChild(particle);
   }
   
-  // Add blink animation
+  // Add connection lines between nearby particles
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].cx - particles[j].cx;
+      const dy = particles[i].cy - particles[j].cy;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      
+      if (distance < 80) {
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', particles[i].cx);
+        line.setAttribute('y1', particles[i].cy);
+        line.setAttribute('x2', particles[j].cx);
+        line.setAttribute('y2', particles[j].cy);
+        line.setAttribute('stroke', 'rgba(85, 228, 255, 0.15)');
+        line.setAttribute('stroke-width', '0.5');
+        line.style.animation = `lineFlicker ${3 + Math.random()}s ease-in-out infinite`;
+        svg.insertBefore(line, svg.firstChild); // Add behind particles
+      }
+    }
+  }
+  
+  // Add enhanced animations
   const style = document.createElement('style');
   style.textContent = `
     @keyframes particleBlink {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 1; }
+      0%, 100% { 
+        opacity: 0.3; 
+        transform: scale(1);
+      }
+      50% { 
+        opacity: 1; 
+        transform: scale(1.3);
+      }
+    }
+    
+    @keyframes lineFlicker {
+      0%, 100% { opacity: 0.1; }
+      50% { opacity: 0.4; }
     }
   `;
   document.head.appendChild(style);
   
-  // Energy core
+  // Enhanced energy core with multiple layers
+  const coreOuter = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  coreOuter.setAttribute('cx', '300');
+  coreOuter.setAttribute('cy', '300');
+  coreOuter.setAttribute('r', '25');
+  coreOuter.setAttribute('fill', 'rgba(216, 255, 94, 0.2)');
+  coreOuter.setAttribute('filter', 'url(#glow)');
+  coreOuter.style.animation = 'coreOuterPulse 3s ease-in-out infinite';
+  svg.appendChild(coreOuter);
+  
+  const coreMid = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  coreMid.setAttribute('cx', '300');
+  coreMid.setAttribute('cy', '300');
+  coreMid.setAttribute('r', '18');
+  coreMid.setAttribute('fill', 'rgba(85, 228, 255, 0.4)');
+  coreMid.setAttribute('filter', 'url(#glow)');
+  coreMid.style.animation = 'coreMidPulse 2s ease-in-out infinite';
+  svg.appendChild(coreMid);
+  
   const core = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
   core.setAttribute('cx', '300');
   core.setAttribute('cy', '300');
-  core.setAttribute('r', '15');
+  core.setAttribute('r', '12');
   core.setAttribute('fill', '#d8ff5e');
   core.setAttribute('filter', 'url(#glow)');
-  core.style.animation = 'corePulse 2s ease-in-out infinite';
+  core.style.animation = 'corePulse 1.5s ease-in-out infinite';
   svg.appendChild(core);
   
   const coreStyle = document.createElement('style');
   coreStyle.textContent = `
     @keyframes corePulse {
-      0%, 100% { r: 15; opacity: 0.8; }
-      50% { r: 20; opacity: 1; }
+      0%, 100% { 
+        r: 12; 
+        opacity: 0.9;
+      }
+      50% { 
+        r: 15; 
+        opacity: 1;
+      }
+    }
+    
+    @keyframes coreMidPulse {
+      0%, 100% { 
+        r: 18; 
+        opacity: 0.4;
+      }
+      50% { 
+        r: 22; 
+        opacity: 0.6;
+      }
+    }
+    
+    @keyframes coreOuterPulse {
+      0%, 100% { 
+        r: 25; 
+        opacity: 0.2;
+      }
+      50% { 
+        r: 30; 
+        opacity: 0.4;
+      }
     }
   `;
   document.head.appendChild(coreStyle);

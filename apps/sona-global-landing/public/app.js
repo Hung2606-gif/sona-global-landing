@@ -131,7 +131,7 @@ function renderChrome() {
           <p>${copy.resources}</p>
           <a href="./library.html">${copy.documentation}</a>
           <a href="./contact.html">${copy.support}</a>
-          <a href="/app-ads.txt" target="_blank">app-ads.txt</a>
+          
         </section>
       </div>
       <div class="footer-legal">
