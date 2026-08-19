@@ -37,7 +37,81 @@
           </p>
         </div>
         <figure class="hero-art compact reveal" data-parallax="0.018">
-          <img src="./media/sona-ecosystem-hero.png" alt="Mobile Apps Ecosystem" />
+          <div class="signature-visual-card mobile-hero-sig" data-tilt-sig>
+            <div class="sig-image-wrap">
+              <img src="./media/mobile-signature-hero.jpg" alt="Mobile Apps 3D Holographic Ecosystem" class="sig-image mobile-hero-img" />
+              <div class="sig-glass-border"></div>
+              <div class="sig-ambient-glow"></div>
+            </div>
+            
+            <!-- Multi-layer Cyber HUD & Animations -->
+            <div class="sig-hud-overlay">
+              <svg viewBox="0 0 500 500" class="sig-svg" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <linearGradient id="mobileHeroScanGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#55e4ff" stop-opacity="0"/>
+                    <stop offset="50%" stop-color="#00d2ff" stop-opacity="0.9"/>
+                    <stop offset="100%" stop-color="#d8ff5e" stop-opacity="0"/>
+                  </linearGradient>
+                  <radialGradient id="mobileAuraGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#00d2ff" stop-opacity="0.35"/>
+                    <stop offset="100%" stop-color="transparent"/>
+                  </radialGradient>
+                  <filter id="sigNeonGlowMobile" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="6" result="blur"/>
+                    <feMerge>
+                      <feMergeNode in="blur"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
+                </defs>
+                
+                <!-- Floating Halo & Orbit Rings around Mobile -->
+                <ellipse cx="250" cy="260" rx="190" ry="110" fill="none" stroke="#55e4ff" stroke-width="1.8" stroke-dasharray="14 8" opacity="0.5" class="sig-orbit-ring rot-cw-slow" />
+                <ellipse cx="250" cy="260" rx="220" ry="130" fill="none" stroke="#d8ff5e" stroke-width="1.2" stroke-dasharray="20 10 6 10" opacity="0.4" class="sig-orbit-ring rot-ccw-mid" />
+                
+                <!-- Signal Waves Emitters -->
+                <g class="sig-signal-waves" filter="url(#sigNeonGlowMobile)">
+                  <circle cx="150" cy="180" r="10" fill="none" stroke="#55e4ff" stroke-width="1.5" class="sig-wave-pulse wp1" />
+                  <circle cx="150" cy="180" r="22" fill="none" stroke="#55e4ff" stroke-width="1" class="sig-wave-pulse wp2" />
+                  <circle cx="360" cy="220" r="12" fill="none" stroke="#d8ff5e" stroke-width="1.5" class="sig-wave-pulse wp1" />
+                  <circle cx="360" cy="220" r="26" fill="none" stroke="#d8ff5e" stroke-width="1" class="sig-wave-pulse wp2" />
+                </g>
+                
+                <!-- App Connection Particles -->
+                <g class="sig-app-particles" filter="url(#sigNeonGlowMobile)">
+                  <circle cx="210" cy="120" r="3.5" fill="#55e4ff" class="sig-synapse-node sn1"/>
+                  <circle cx="340" cy="140" r="4" fill="#d8ff5e" class="sig-synapse-node sn2"/>
+                  <circle cx="130" cy="340" r="3.5" fill="#00d2ff" class="sig-synapse-node sn3"/>
+                  <circle cx="390" cy="350" r="3.8" fill="#55e4ff" class="sig-synapse-node sn4"/>
+                </g>
+                
+                <!-- Laser Scanline -->
+                <rect x="0" y="0" width="500" height="3" fill="url(#mobileHeroScanGrad)" class="sig-scan-laser" filter="url(#sigNeonGlowMobile)"/>
+                
+                <!-- Corner Brackets -->
+                <path d="M 20 40 L 20 20 L 40 20" fill="none" stroke="#55e4ff" stroke-width="2" opacity="0.8"/>
+                <path d="M 480 40 L 480 20 L 460 20" fill="none" stroke="#55e4ff" stroke-width="2" opacity="0.8"/>
+                <path d="M 20 460 L 20 480 L 40 480" fill="none" stroke="#55e4ff" stroke-width="2" opacity="0.8"/>
+                <path d="M 480 460 L 480 480 L 460 480" fill="none" stroke="#55e4ff" stroke-width="2" opacity="0.8"/>
+              </svg>
+              
+              <!-- Interactive Badges -->
+              <div class="sig-tag sig-tag-tl">
+                <span class="sig-tag-dot live"></span>
+                <span>SONA MOBILE OS 2026</span>
+              </div>
+              <div class="sig-tag sig-tag-tr">
+                <span>130M+ NODES</span>
+              </div>
+              <div class="sig-tag sig-tag-bl">
+                <span>CROSS-PLATFORM SYNC</span>
+              </div>
+              <div class="sig-tag sig-tag-br">
+                <span>ULTRA FLUID 120Hz</span>
+              </div>
+            </div>
+          </div>
         </figure>
       </section>
 
@@ -143,7 +217,65 @@
       <!-- Features Section -->
       <section class="section ai-technology-section">
         <div class="data-panel reveal">
-          <img src="./media/sona-ecosystem-hero.png" alt="Mobile Technology" loading="lazy" />
+          <div class="signature-visual-card mobile-tech-sig" data-tilt-sig>
+            <div class="sig-image-wrap">
+              <img src="./media/mobile-signature-tech.jpg" alt="Mobile Biometrics & Smart Studio Engine" class="sig-image mobile-tech-img" loading="lazy" />
+              <div class="sig-glass-border"></div>
+              <div class="sig-ambient-glow"></div>
+            </div>
+            
+            <div class="sig-hud-overlay">
+              <svg viewBox="0 0 500 500" class="sig-svg" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <linearGradient id="mobileTechScanGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#00d2ff" stop-opacity="0"/>
+                    <stop offset="50%" stop-color="#55e4ff" stop-opacity="0.9"/>
+                    <stop offset="100%" stop-color="#d8ff5e" stop-opacity="0"/>
+                  </linearGradient>
+                  <filter id="sigNeonGlowTech" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="6" result="blur"/>
+                    <feMerge>
+                      <feMergeNode in="blur"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
+                </defs>
+                
+                <!-- Biometric Scan Targeting Reticle -->
+                <g class="sig-biometric-reticle" filter="url(#sigNeonGlowTech)">
+                  <circle cx="250" cy="160" r="60" fill="none" stroke="#55e4ff" stroke-width="1.5" stroke-dasharray="10 8" opacity="0.7" class="sig-orbit-ring rot-cw-slow" />
+                  <circle cx="250" cy="160" r="80" fill="none" stroke="#d8ff5e" stroke-width="1.2" stroke-dasharray="16 12 4 12" opacity="0.6" class="sig-orbit-ring rot-ccw-mid" />
+                  <!-- Aperture Lens Rings -->
+                  <circle cx="250" cy="370" r="70" fill="none" stroke="#00d2ff" stroke-width="1.5" stroke-dasharray="8 6" opacity="0.65" class="sig-orbit-ring rot-cw-slow" />
+                  <circle cx="250" cy="370" r="95" fill="none" stroke="#55e4ff" stroke-width="1" stroke-dasharray="15 10" opacity="0.5" class="sig-orbit-ring rot-ccw-mid" />
+                </g>
+                
+                <!-- Laser Scanline -->
+                <rect x="0" y="0" width="500" height="3" fill="url(#mobileTechScanGrad)" class="sig-scan-laser laser-alt" filter="url(#sigNeonGlowTech)"/>
+                
+                <!-- Corner Brackets -->
+                <path d="M 20 40 L 20 20 L 40 20" fill="none" stroke="#55e4ff" stroke-width="2" opacity="0.8"/>
+                <path d="M 480 40 L 480 20 L 460 20" fill="none" stroke="#55e4ff" stroke-width="2" opacity="0.8"/>
+                <path d="M 20 460 L 20 480 L 40 480" fill="none" stroke="#55e4ff" stroke-width="2" opacity="0.8"/>
+                <path d="M 480 460 L 480 480 L 460 480" fill="none" stroke="#55e4ff" stroke-width="2" opacity="0.8"/>
+              </svg>
+              
+              <!-- Cyber Badges -->
+              <div class="sig-tag sig-tag-tl">
+                <span class="sig-tag-dot live"></span>
+                <span>BIOMETRIC: SECURED</span>
+              </div>
+              <div class="sig-tag sig-tag-tr">
+                <span>OPTIC PRO 4K</span>
+              </div>
+              <div class="sig-tag sig-tag-bl">
+                <span>AUDIO NEURAL EQ</span>
+              </div>
+              <div class="sig-tag sig-tag-br">
+                <span>HARDWARE ACCELERATED</span>
+              </div>
+            </div>
+          </div>
           <div class="data-copy">
             <p class="section-label">
               <span>02</span>

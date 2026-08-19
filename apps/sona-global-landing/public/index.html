@@ -61,42 +61,71 @@
         <p class="section-label reveal"><span>03</span><span data-i18n data-vi="SẢN PHẨM NỔI BẬT" data-en="FEATURED PRODUCTS">SẢN PHẨM NỔI BẬT</span></p>
         <h2 id="products-title" class="display narrow reveal" data-i18n data-vi="Những sản phẩm<br />đang <em>thay đổi cuộc sống.</em>" data-en="Products that are<br /><em>changing lives.</em>">Những sản phẩm<br />đang <em>thay đổi cuộc sống.</em></h2>
         
-        <div class="rotating-products reveal" id="rotating-products">
-          <div class="center-logo">
-            <span class="brand-mark"></span>
-            <span class="logo-text">SONA-GLOBAL</span>
+        <!-- Apero-style 3D Floating Cards - Circular Layout -->
+        <div class="apero-products-container" id="apero-products">
+          <!-- Center Diamond -->
+          <div class="center-diamond" id="center-diamond">
+            <div class="diamond-glow"></div>
+            <svg viewBox="0 0 200 200" class="diamond-svg">
+              <defs>
+                <linearGradient id="diamondGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#55e4ff;stop-opacity:1" />
+                  <stop offset="50%" style="stop-color:#d8ff5e;stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:#ad8dff;stop-opacity:1" />
+                </linearGradient>
+                <filter id="diamondGlow">
+                  <feGaussianBlur stdDeviation="10" result="coloredBlur"/>
+                  <feMerge>
+                    <feMergeNode in="coloredBlur"/>
+                    <feMergeNode in="coloredBlur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
+              <polygon points="100,20 160,100 100,180 40,100" 
+                       fill="url(#diamondGrad1)" 
+                       stroke="#55e4ff" 
+                       stroke-width="2"
+                       filter="url(#diamondGlow)"
+                       opacity="0.9"/>
+              <polygon points="100,20 160,100 100,100" fill="rgba(255,255,255,0.2)"/>
+              <polygon points="40,100 100,100 100,180" fill="rgba(0,0,0,0.3)"/>
+            </svg>
+            <div class="diamond-text">SONA<br/>GLOBAL</div>
           </div>
           
-          <div class="product-orbit" data-product="1">
-            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k=" alt="Flash Alert">
+          <!-- Hexagon Layout: 6 products (remove product 5 & 7) -->
+          <!-- Top 2 -->
+          <div class="apero-product-card orbit-card" data-orbit="0">
+            <img src="./media/product1-popcorn.jpg" alt="Popcorn" class="product-thumb">
+            <span class="product-name">Popcorn</span>
           </div>
           
-          <div class="product-orbit" data-product="2">
-            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k=" alt="Stunning Phone">
+          <div class="apero-product-card orbit-card" data-orbit="1">
+            <img src="./media/product2-videomaker.jpg" alt="Video Maker" class="product-thumb">
+            <span class="product-name">Video Maker</span>
           </div>
           
-          <div class="product-orbit" data-product="3">
-            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k=" alt="Themes">
+          <!-- Middle 2 (left & right) -->
+          <div class="apero-product-card orbit-card" data-orbit="2">
+            <img src="./media/product3-vivaone.jpg" alt="Viva One" class="product-thumb">
+            <span class="product-name">Viva One</span>
           </div>
           
-          <div class="product-orbit" data-product="4">
-            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k=" alt="Stand Out">
+          <div class="apero-product-card orbit-card" data-orbit="3">
+            <img src="./media/product4-beauty.jpg" alt="Beauty" class="product-thumb">
+            <span class="product-name">Beauty</span>
           </div>
           
-          <div class="product-orbit" data-product="5">
-            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k=" alt="Voice Recognition">
+          <!-- Bottom 2 -->
+          <div class="apero-product-card orbit-card" data-orbit="4">
+            <img src="./media/product6-lovecalls.jpg" alt="Love Calls" class="product-thumb">
+            <span class="product-name">Love Calls</span>
           </div>
           
-          <div class="product-orbit" data-product="6">
-            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k=" alt="Call Screen">
-          </div>
-          
-          <div class="product-orbit" data-product="7">
-            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k=" alt="Answer Buttons">
-          </div>
-          
-          <div class="product-orbit" data-product="8">
-            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k=" alt="Lock Screen">
+          <div class="apero-product-card orbit-card" data-orbit="5">
+            <img src="./media/product8-camera.jpg" alt="Camera Pro" class="product-thumb">
+            <span class="product-name">Camera Pro</span>
           </div>
         </div>
 

@@ -21,7 +21,65 @@
           <h1 class="hero-title reveal reveal-delay-1" data-i18n data-vi="Chia sẻ để<br /><em>cùng đi xa hơn.</em>" data-en="Sharing what helps<br /><em>us all go further.</em>">Chia sẻ để<br /><em>cùng đi xa hơn.</em></h1>
           <p class="hero-lead reveal reveal-delay-2" data-i18n data-vi="Những ghi chép từ đội ngũ SONA-GLOBAL về AI, sản phẩm, tăng trưởng và con người đứng sau mỗi lần ra mắt." data-en="Notes from the SONA-GLOBAL team on AI, product craft, growth and the people behind each launch.">Những ghi chép từ đội ngũ SONA-GLOBAL về AI, sản phẩm, tăng trưởng và con người đứng sau mỗi lần ra mắt.</p>
         </div>
-        <div class="quote-orbit reveal" aria-hidden="true"><span>IDEAS</span><i></i><b>SHARE<br />THE<br />SIGNAL</b></div>
+        <figure class="hero-art compact reveal" data-parallax="0.018">
+          <div class="signature-visual-card share-hero-sig" data-tilt-sig>
+            <div class="sig-image-wrap">
+              <img src="./media/share-signature-hero.jpg" alt="We Share - Knowledge & Insights Broadcast" class="sig-image share-hero-img" />
+              <div class="sig-glass-border"></div>
+              <div class="sig-ambient-glow"></div>
+            </div>
+            
+            <div class="sig-hud-overlay">
+              <svg viewBox="0 0 500 500" class="sig-svg" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <linearGradient id="shareScanGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#55e4ff" stop-opacity="0"/>
+                    <stop offset="50%" stop-color="#ad8dff" stop-opacity="0.9"/>
+                    <stop offset="100%" stop-color="#55e4ff" stop-opacity="0"/>
+                  </linearGradient>
+                  <filter id="sigShareGlow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="6" result="blur"/>
+                    <feMerge>
+                      <feMergeNode in="blur"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
+                </defs>
+                
+                <!-- Signal Broadcast Waves -->
+                <g class="sig-signal-waves" filter="url(#sigShareGlow)">
+                  <circle cx="250" cy="250" r="90" fill="none" stroke="#55e4ff" stroke-width="1.5" stroke-dasharray="10 6" opacity="0.6" class="sig-orbit-ring rot-cw-slow"/>
+                  <circle cx="250" cy="250" r="140" fill="none" stroke="#ad8dff" stroke-width="1.5" stroke-dasharray="16 8" opacity="0.5" class="sig-orbit-ring rot-ccw-mid"/>
+                  <circle cx="250" cy="250" r="190" fill="none" stroke="#55e4ff" stroke-width="1" stroke-dasharray="24 12" opacity="0.4" class="sig-orbit-ring rot-cw-slow"/>
+                </g>
+                
+                <!-- Laser Scanline -->
+                <rect x="0" y="0" width="500" height="3" fill="url(#shareScanGrad)" class="sig-scan-laser" filter="url(#sigShareGlow)"/>
+                
+                <!-- Corner Brackets -->
+                <path d="M 20 40 L 20 20 L 40 20" fill="none" stroke="#ad8dff" stroke-width="2" opacity="0.8"/>
+                <path d="M 480 40 L 480 20 L 460 20" fill="none" stroke="#ad8dff" stroke-width="2" opacity="0.8"/>
+                <path d="M 20 460 L 20 480 L 40 480" fill="none" stroke="#ad8dff" stroke-width="2" opacity="0.8"/>
+                <path d="M 480 460 L 480 480 L 460 480" fill="none" stroke="#ad8dff" stroke-width="2" opacity="0.8"/>
+              </svg>
+              
+              <!-- Live Cyber Badges -->
+              <div class="sig-tag sig-tag-tl">
+                <span class="sig-tag-dot live"></span>
+                <span>INSIGHTS: LIVE</span>
+              </div>
+              <div class="sig-tag sig-tag-tr">
+                <span>FORBES AI TRENDS</span>
+              </div>
+              <div class="sig-tag sig-tag-bl">
+                <span>PRODUCT CRAFT</span>
+              </div>
+              <div class="sig-tag sig-tag-br">
+                <span>OPEN KNOWLEDGE HUB</span>
+              </div>
+            </div>
+          </div>
+        </figure>
       </section>
 
       <section class="section content-section" aria-labelledby="stories-title">

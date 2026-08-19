@@ -13,49 +13,271 @@
     <canvas id="network" aria-hidden="true"></canvas><div class="noise" aria-hidden="true"></div><header id="site-header"></header>
     <main>
       <section class="page-hero section module-hero">
-        <div class="hero-copy"><p class="eyebrow reveal"><span class="live-dot"></span><span data-i18n data-vi="ECOSYSTEM" data-en="ECOSYSTEM">ECOSYSTEM</span></p><h1 class="hero-title reveal reveal-delay-1" data-i18n data-vi="High-tech products<br />for <em>billions.</em>" data-en="High-tech products<br />for <em>billions.</em>">Sản phẩm công nghệ cao cho <br /><em>hàng tỷ người.</em></h1><p class="hero-lead reveal reveal-delay-2" data-i18n data-vi="Hơn 300 sản phẩm thuộc ba ngành công nghệ trọng điểm. Mỗi nhóm có cá tính riêng, nhưng được kết nối bởi cùng một năng lực sản phẩm, dữ liệu và tăng trưởng." data-en="More than 300 products across three high-growth technology categories. Each has its own character, connected by the same product, data and growth capability.">Hơn 300 sản phẩm thuộc ba ngành công nghệ trọng điểm. Mỗi nhóm có cá tính riêng, nhưng được kết nối bởi cùng một năng lực sản phẩm, dữ liệu và tăng trưởng.</p></div>
+        <div class="hero-copy"><p class="eyebrow reveal"><span class="live-dot"></span><span data-i18n data-vi="ECOSYSTEM" data-en="ECOSYSTEM">ECOSYSTEM</span></p>
+  <h1 class="hero-title reveal reveal-delay-1" data-i18n data-vi="Sản phẩm công nghệ cao<br />cho <em>hàng tỷ người.</em>" data-en="High-tech products<br />for <em>billions.</em>">Sản phẩm công nghệ cao<br />cho <em>hàng tỷ người.</em></h1>
+  <p class="hero-lead reveal reveal-delay-2" data-i18n data-vi="Hơn 300 sản phẩm thuộc ba ngành công nghệ trọng điểm. Mỗi nhóm có cá tính riêng, nhưng được kết nối bởi cùng một năng lực sản phẩm, dữ liệu và tăng trưởng." data-en="More than 300 products across three high-growth technology categories. Each has its own character, connected by the same product, data and growth capability.">Hơn 300 sản phẩm thuộc ba ngành công nghệ trọng điểm. Mỗi nhóm có cá tính riêng, nhưng được kết nối bởi cùng một năng lực sản phẩm, dữ liệu và tăng trưởng.</p>
+</div>
         <figure class="hero-art compact reveal" data-parallax="0.018">
-          <div class="animated-globe">
-            <div class="globe-sphere"></div>
-            <div class="globe-connections">
-              <div class="connection-line"></div>
-              <div class="connection-line"></div>
-              <div class="connection-line"></div>
-              <div class="connection-line"></div>
-            </div>
-            <div class="globe-node"></div>
-            <div class="globe-node"></div>
-            <div class="globe-node"></div>
-            <div class="globe-node"></div>
-            <div class="globe-node"></div>
-            <div class="globe-node"></div>
+          <div class="tech-ecosystem-3d">
+            <svg viewBox="0 0 600 400" class="ecosystem-svg">
+              <defs>
+                <!-- Gradients -->
+                <linearGradient id="deviceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#55e4ff" stop-opacity="1"/>
+                  <stop offset="100%" stop-color="#00d2ff" stop-opacity="0.9"/>
+                </linearGradient>
+                <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#d8ff5e" stop-opacity="0.8"/>
+                  <stop offset="50%" stop-color="#55e4ff" stop-opacity="0.6"/>
+                  <stop offset="100%" stop-color="#ad8dff" stop-opacity="0.7"/>
+                </linearGradient>
+                <radialGradient id="platformGrad">
+                  <stop offset="0%" stop-color="#0a1628" stop-opacity="0.9"/>
+                  <stop offset="100%" stop-color="#060a12" stop-opacity="1"/>
+                </radialGradient>
+                <filter id="deviceGlow">
+                  <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+                  <feMerge>
+                    <feMergeNode in="coloredBlur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
+              
+              <!-- Platform Base -->
+              <ellipse cx="300" cy="320" rx="200" ry="30" fill="url(#platformGrad)" opacity="0.6"/>
+              <ellipse cx="300" cy="318" rx="180" ry="25" fill="none" stroke="#55e4ff" stroke-width="1" opacity="0.3"/>
+              
+              <!-- Robot Arm (left) -->
+              <g class="robot-arm" filter="url(#deviceGlow)">
+                <rect x="80" y="280" width="15" height="40" rx="3" fill="url(#deviceGrad)"/>
+                <rect x="75" y="240" width="25" height="45" rx="4" fill="url(#deviceGrad)"/>
+                <circle cx="87.5" cy="242" r="8" fill="#55e4ff"/>
+                <rect x="83" y="220" width="9" height="25" rx="2" fill="#00d2ff"/>
+                <circle cx="87.5" cy="218" r="6" fill="#d8ff5e"/>
+                <line x1="87.5" y1="218" x2="87.5" y2="242" stroke="#55e4ff" stroke-width="1.5"/>
+              </g>
+              
+              <!-- Smartphone (left-center) -->
+              <g class="device smartphone-1" filter="url(#deviceGlow)">
+                <rect x="140" y="230" width="40" height="70" rx="5" fill="#0a1628" stroke="#55e4ff" stroke-width="2"/>
+                <rect x="145" y="238" width="30" height="50" rx="2" fill="#00d2ff" opacity="0.3"/>
+                <circle cx="160" cy="293" r="3" fill="#55e4ff"/>
+                <line x1="150" y1="235" x2="170" y2="235" stroke="#55e4ff" stroke-width="1" opacity="0.6"/>
+              </g>
+              
+              <!-- Drone (top-right) -->
+              <g class="device drone" filter="url(#deviceGlow)">
+                <ellipse cx="450" cy="120" rx="30" ry="8" fill="url(#deviceGrad)"/>
+                <rect x="440" y="115" width="20" height="10" rx="2" fill="#00d2ff"/>
+                <circle cx="425" cy="105" r="8" fill="#55e4ff" opacity="0.8"/>
+                <circle cx="475" cy="105" r="8" fill="#55e4ff" opacity="0.8"/>
+                <circle cx="425" cy="135" r="8" fill="#55e4ff" opacity="0.8"/>
+                <circle cx="475" cy="135" r="8" fill="#55e4ff" opacity="0.8"/>
+                <!-- Propellers -->
+                <circle cx="425" cy="105" r="12" fill="none" stroke="#d8ff5e" stroke-width="1" opacity="0.4" class="propeller"/>
+                <circle cx="475" cy="105" r="12" fill="none" stroke="#d8ff5e" stroke-width="1" opacity="0.4" class="propeller"/>
+              </g>
+              
+              <!-- Tablet (center-right) -->
+              <g class="device tablet" filter="url(#deviceGlow)">
+                <rect x="380" y="240" width="70" height="50" rx="4" fill="#0a1628" stroke="#55e4ff" stroke-width="2"/>
+                <rect x="386" y="246" width="58" height="38" rx="2" fill="#00d2ff" opacity="0.25"/>
+                <circle cx="415" cy="285" r="2.5" fill="#55e4ff"/>
+                <!-- Screen content -->
+                <rect x="390" y="250" width="50" height="6" rx="1" fill="#55e4ff" opacity="0.6"/>
+                <rect x="390" y="260" width="35" height="4" rx="1" fill="#d8ff5e" opacity="0.5"/>
+                <rect x="390" y="268" width="42" height="4" rx="1" fill="#55e4ff" opacity="0.4"/>
+              </g>
+              
+              <!-- Smartwatch (bottom-center) -->
+              <g class="device smartwatch" filter="url(#deviceGlow)">
+                <rect x="270" y="290" width="35" height="45" rx="8" fill="#0a1628" stroke="#55e4ff" stroke-width="2"/>
+                <rect x="275" y="298" width="25" height="25" rx="3" fill="#00d2ff" opacity="0.3"/>
+                <circle cx="287.5" cy="310.5" r="8" fill="none" stroke="#d8ff5e" stroke-width="1.5"/>
+                <line x1="287.5" y1="310.5" x2="287.5" y2="305" stroke="#d8ff5e" stroke-width="1.5"/>
+                <line x1="287.5" y1="310.5" x2="292" y2="310.5" stroke="#d8ff5e" stroke-width="1.5"/>
+              </g>
+              
+              <!-- Laptop (right) -->
+              <g class="device laptop" filter="url(#deviceGlow)">
+                <rect x="480" y="260" width="80" height="50" rx="3" fill="#0a1628" stroke="#55e4ff" stroke-width="2"/>
+                <rect x="485" y="265" width="70" height="40" rx="2" fill="#00d2ff" opacity="0.2"/>
+                <rect x="470" y="310" width="110" height="8" rx="2" fill="url(#deviceGrad)"/>
+                <!-- Screen glow -->
+                <rect x="490" y="270" width="60" height="30" rx="1" fill="url(#glowGrad)" opacity="0.15"/>
+              </g>
+              
+              <!-- Connection Lines -->
+              <g class="connections" opacity="0.3">
+                <line x1="160" y1="265" x2="287" y2="310" stroke="#55e4ff" stroke-width="1" stroke-dasharray="4 4" class="connect-line"/>
+                <line x1="287" y1="310" x2="415" y2="265" stroke="#55e4ff" stroke-width="1" stroke-dasharray="4 4" class="connect-line"/>
+                <line x1="415" y1="265" x2="520" y2="285" stroke="#55e4ff" stroke-width="1" stroke-dasharray="4 4" class="connect-line"/>
+                <line x1="450" y1="120" x2="415" y2="240" stroke="#55e4ff" stroke-width="1" stroke-dasharray="4 4" class="connect-line"/>
+              </g>
+              
+              <!-- Data Particles -->
+              <circle cx="200" cy="200" r="3" fill="#d8ff5e" class="data-particle p1"/>
+              <circle cx="350" cy="180" r="2.5" fill="#55e4ff" class="data-particle p2"/>
+              <circle cx="480" cy="220" r="3.5" fill="#00d2ff" class="data-particle p3"/>
+              <circle cx="320" cy="250" r="2" fill="#ad8dff" class="data-particle p4"/>
+              <circle cx="420" cy="160" r="2.8" fill="#d8ff5e" class="data-particle p5"/>
+              
+              <!-- Glow Rings -->
+              <circle cx="300" cy="200" r="100" fill="none" stroke="#55e4ff" stroke-width="1" opacity="0.1" class="glow-ring ring-1"/>
+              <circle cx="300" cy="200" r="150" fill="none" stroke="#00d2ff" stroke-width="0.5" opacity="0.08" class="glow-ring ring-2"/>
+            </svg>
           </div>
         </figure>
       </section>
       <section class="section content-section" aria-labelledby="products-title">
         <p class="section-label reveal"><span>01</span><span data-i18n data-vi="HAI NHÓM SẢN PHẨM" data-en="THREE PRODUCT CATEGORIES">HAI NHÓM SẢN PHẨM</span></p><h2 id="products-title" class="display narrow reveal" data-i18n data-vi="Một hệ sinh thái,<br /><em>nhiều cách tạo giá trị.</em>" data-en="One ecosystem,<br /><em>many ways to create value.</em>">Một hệ sinh thái,<br /><em>nhiều cách tạo giá trị.</em></h2>
         <div class="product-grid">
-          <article class="product-card ai reveal" data-tilt><div class="card-kicker">01 / AI APPS</div><div class="orbital-art" aria-hidden="true"></div><h3 data-i18n data-vi="AI Apps" data-en="AI Apps">AI Apps</h3><p data-i18n data-vi="Genius và FaceMagic biến ảnh, video và cảm hứng sáng tạo thành những trải nghiệm AI gần gũi." data-en="Genius and FaceMagic turn photos, video and creative inspiration into approachable AI experiences.">Genius và FaceMagic biến ảnh, video và cảm hứng sáng tạo thành những trải nghiệm AI gần gũi.</p><ul><li>Generative photo & video</li><li>AI creative tools</li></ul></article>
-          <article class="product-card mobile reveal reveal-delay-1" data-tilt><div class="card-kicker">02 / MOBILE APPS</div><div class="scan-art" aria-hidden="true"></div><h3 data-i18n data-vi="Mobile Apps" data-en="Mobile Apps">Mobile Apps</h3><p data-i18n data-vi="Caller ID và Pulse Vista giúp người dùng kết nối an toàn hơn, khỏe mạnh hơn và chủ động hơn." data-en="Caller ID and Pulse Vista help people connect more safely, live more healthily and stay in control.">Caller ID và Pulse Vista giúp người dùng kết nối an toàn hơn, khỏe mạnh hơn và chủ động hơn.</p><ul><li>Utility & productivity</li><li>Health & wellbeing</li></ul></article>
+          <article class="product-card ai reveal" data-tilt>
+            <div class="card-kicker">01 / AI APPS</div>
+            <div class="orbital-art" aria-hidden="true">
+              <svg viewBox="0 0 200 200" class="ai-brain-svg">
+                <defs>
+                  <linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#d8ff5e" stop-opacity="0.9"/>
+                    <stop offset="100%" stop-color="#55e4ff" stop-opacity="0.8"/>
+                  </linearGradient>
+                  <filter id="brainGlow">
+                    <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                    <feMerge>
+                      <feMergeNode in="coloredBlur"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
+                </defs>
+                
+                <!-- Neural Network Nodes -->
+                <circle cx="100" cy="60" r="12" fill="url(#brainGrad)" filter="url(#brainGlow)" class="brain-node n1"/>
+                <circle cx="70" cy="100" r="10" fill="url(#brainGrad)" filter="url(#brainGlow)" class="brain-node n2"/>
+                <circle cx="130" cy="100" r="10" fill="url(#brainGrad)" filter="url(#brainGlow)" class="brain-node n3"/>
+                <circle cx="50" cy="140" r="8" fill="url(#brainGrad)" filter="url(#brainGlow)" class="brain-node n4"/>
+                <circle cx="100" cy="140" r="11" fill="url(#brainGrad)" filter="url(#brainGlow)" class="brain-node n5"/>
+                <circle cx="150" cy="140" r="8" fill="url(#brainGrad)" filter="url(#brainGlow)" class="brain-node n6"/>
+                
+                <!-- Connections -->
+                <line x1="100" y1="60" x2="70" y2="100" stroke="#55e4ff" stroke-width="1.5" opacity="0.4" class="brain-connect c1"/>
+                <line x1="100" y1="60" x2="130" y2="100" stroke="#55e4ff" stroke-width="1.5" opacity="0.4" class="brain-connect c2"/>
+                <line x1="70" y1="100" x2="50" y2="140" stroke="#d8ff5e" stroke-width="1.5" opacity="0.4" class="brain-connect c3"/>
+                <line x1="70" y1="100" x2="100" y2="140" stroke="#55e4ff" stroke-width="1.5" opacity="0.4" class="brain-connect c4"/>
+                <line x1="130" y1="100" x2="100" y2="140" stroke="#d8ff5e" stroke-width="1.5" opacity="0.4" class="brain-connect c5"/>
+                <line x1="130" y1="100" x2="150" y2="140" stroke="#55e4ff" stroke-width="1.5" opacity="0.4" class="brain-connect c6"/>
+                
+                <!-- Data Particles -->
+                <circle cx="85" cy="80" r="2" fill="#d8ff5e" class="ai-particle ap1"/>
+                <circle cx="115" cy="80" r="2" fill="#55e4ff" class="ai-particle ap2"/>
+                <circle cx="60" cy="120" r="1.5" fill="#d8ff5e" class="ai-particle ap3"/>
+                <circle cx="140" cy="120" r="1.5" fill="#55e4ff" class="ai-particle ap4"/>
+              </svg>
+            </div>
+            <h3 data-i18n data-vi="AI Apps" data-en="AI Apps">AI Apps</h3>
+            <p data-i18n data-vi="Genius và FaceMagic biến ảnh, video và cảm hứng sáng tạo thành những trải nghiệm AI gần gũi." data-en="Genius and FaceMagic turn photos, video and creative inspiration into approachable AI experiences.">Genius và FaceMagic biến ảnh, video và cảm hứng sáng tạo thành những trải nghiệm AI gần gũi.</p>
+            <ul><li>Generative photo & video</li><li>AI creative tools</li></ul>
+          </article>
+          <article class="product-card mobile reveal reveal-delay-1" data-tilt>
+            <div class="card-kicker">02 / MOBILE APPS</div>
+            <div class="scan-art" aria-hidden="true">
+              <svg viewBox="0 0 200 200" class="mobile-phone-svg">
+                <defs>
+                  <linearGradient id="phoneGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#55e4ff" stop-opacity="0.9"/>
+                    <stop offset="100%" stop-color="#00d2ff" stop-opacity="0.8"/>
+                  </linearGradient>
+                  <linearGradient id="screenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#00d2ff" stop-opacity="0.3"/>
+                    <stop offset="100%" stop-color="#55e4ff" stop-opacity="0.2"/>
+                  </linearGradient>
+                  <filter id="phoneGlow">
+                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                    <feMerge>
+                      <feMergeNode in="coloredBlur"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
+                </defs>
+                
+                <!-- Phone Body -->
+                <rect x="65" y="30" width="70" height="140" rx="12" fill="#0a1628" stroke="#55e4ff" stroke-width="2" filter="url(#phoneGlow)"/>
+                
+                <!-- Screen -->
+                <rect x="72" y="40" width="56" height="115" rx="6" fill="url(#screenGrad)"/>
+                
+                <!-- Top notch -->
+                <rect x="90" y="37" width="20" height="4" rx="2" fill="#0a1628"/>
+                <circle cx="85" cy="39" r="1.5" fill="#55e4ff" opacity="0.6"/>
+                
+                <!-- Home button -->
+                <circle cx="100" cy="163" r="4" fill="none" stroke="#55e4ff" stroke-width="1.5"/>
+                
+                <!-- Screen Content - Animated UI -->
+                <g class="phone-ui">
+                  <!-- Status bar -->
+                  <line x1="78" y1="48" x2="95" y2="48" stroke="#55e4ff" stroke-width="1.5" opacity="0.5"/>
+                  <circle cx="120" cy="48" r="1.5" fill="#d8ff5e" class="signal-dot s1"/>
+                  <circle cx="117" cy="48" r="1.5" fill="#d8ff5e" class="signal-dot s2"/>
+                  <circle cx="114" cy="48" r="1.5" fill="#d8ff5e" class="signal-dot s3"/>
+                  
+                  <!-- App Icons -->
+                  <rect x="78" y="60" width="16" height="16" rx="3" fill="#55e4ff" opacity="0.6" class="app-icon i1"/>
+                  <rect x="100" y="60" width="16" height="16" rx="3" fill="#d8ff5e" opacity="0.6" class="app-icon i2"/>
+                  <rect x="78" y="82" width="16" height="16" rx="3" fill="#00d2ff" opacity="0.6" class="app-icon i3"/>
+                  <rect x="100" y="82" width="16" height="16" rx="3" fill="#ad8dff" opacity="0.6" class="app-icon i4"/>
+                  
+                  <!-- Notification -->
+                  <rect x="75" y="110" width="50" height="20" rx="4" fill="#55e4ff" opacity="0.2" class="notification"/>
+                  <circle cx="80" cy="120" r="2" fill="#d8ff5e"/>
+                  <line x1="86" y1="117" x2="118" y2="117" stroke="#55e4ff" stroke-width="1" opacity="0.6"/>
+                  <line x1="86" y1="123" x2="110" y2="123" stroke="#55e4ff" stroke-width="0.8" opacity="0.4"/>
+                </g>
+                
+                <!-- Signal waves -->
+                <path d="M 145 55 Q 150 50 145 45" stroke="#55e4ff" stroke-width="1" fill="none" opacity="0.4" class="signal-wave w1"/>
+                <path d="M 150 58 Q 157 50 150 42" stroke="#55e4ff" stroke-width="1" fill="none" opacity="0.3" class="signal-wave w2"/>
+              </svg>
+            </div>
+            <h3 data-i18n data-vi="Mobile Apps" data-en="Mobile Apps">Mobile Apps</h3>
+            <p data-i18n data-vi="Caller ID và Pulse Vista giúp người dùng kết nối an toàn hơn, khỏe mạnh hơn và chủ động hơn." data-en="Caller ID and Pulse Vista help people connect more safely, live more healthily and stay in control.">Caller ID và Pulse Vista giúp người dùng kết nối an toàn hơn, khỏe mạnh hơn và chủ động hơn.</p>
+            <ul><li>Utility & productivity</li><li>Health & wellbeing</li></ul>
+          </article>
         </div>
       </section>
       <section class="section data-section"><div class="data-panel reveal">
-        <div class="animated-globe">
-          <div class="globe-sphere"></div>
-          <div class="globe-connections">
-            <div class="connection-line"></div>
-            <div class="connection-line"></div>
-            <div class="connection-line"></div>
-            <div class="connection-line"></div>
-          </div>
-          <div class="globe-node"></div>
-          <div class="globe-node"></div>
-          <div class="globe-node"></div>
-          <div class="globe-node"></div>
-          <div class="globe-node"></div>
-          <div class="globe-node"></div>
+        <div class="growth-arrow-3d small">
+          <svg viewBox="0 0 400 400" class="arrow-svg">
+            <defs>
+              <linearGradient id="arrowGradient2" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#00d2ff" stop-opacity="0.8"/>
+                <stop offset="50%" stop-color="#55e4ff" stop-opacity="1"/>
+                <stop offset="100%" stop-color="#d8ff5e" stop-opacity="0.9"/>
+              </linearGradient>
+              <filter id="arrowGlow2">
+                <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+                <feMerge>
+                  <feMergeNode in="coloredBlur"/>
+                  <feMergeNode in="coloredBlur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+            <g class="arrow-main" filter="url(#arrowGlow2)">
+              <path d="M 80 350 L 280 150 L 280 200 L 350 130 L 280 60 L 280 110 L 80 310 Z" 
+                    fill="url(#arrowGradient2)" 
+                    stroke="#55e4ff" 
+                    stroke-width="2"
+                    opacity="0.95"/>
+              <path d="M 280 130 L 350 130 L 280 60 Z" fill="rgba(216, 255, 94, 0.4)"/>
+            </g>
+            <g class="floating-cube cube-1"><rect x="100" y="280" width="30" height="30" fill="url(#cubeGrad)" opacity="0.8" rx="2"/></g>
+            <g class="floating-cube cube-2"><rect x="200" y="180" width="35" height="35" fill="url(#cubeGrad)" opacity="0.9" rx="2"/></g>
+            <circle cx="120" cy="300" r="3" fill="#d8ff5e" opacity="0.8" class="particle p1"/>
+            <circle cx="240" cy="160" r="3.5" fill="#00d2ff" opacity="0.9" class="particle p3"/>
+          </svg>
         </div>
-        <div class="data-copy"><p class="section-label"><span>02</span><span data-i18n data-vi="DATA × AI × GROWTH" data-en="DATA × AI × GROWTH">DATA × AI × GROWTH</span></p><h2 data-i18n data-vi="Biến dữ liệu thành <em>động lực tăng trưởng.</em>" data-en="Turning data into <em>growth momentum.</em>">Biến dữ liệu thành <em>động lực tăng trưởng.</em></h2><div class="data-points"><p><strong>Research</strong><span data-i18n data-vi="Nghiên cứu thị trường và nhu cầu chưa được đáp ứng." data-en="Researching markets and unmet needs.">Nghiên cứu thị trường và nhu cầu chưa được đáp ứng.</span></p><p><strong>Experiment</strong><span data-i18n data-vi="A/B test và product analytics cho từng lần lặp." data-en="A/B testing and product analytics for every iteration.">A/B test và product analytics cho từng lần lặp.</span></p><p><strong>Scale</strong><span data-i18n data-vi="Tối ưu UA, ROAS và monetization dài hạn." data-en="Optimising UA, ROAS and long-term monetisation.">Tối ưu UA, ROAS và monetization dài hạn.</span></p></div></div></div></section>
+        <div class="data-copy"><p class="section-label"><span>02</span><span data-i18n data-vi="DATA × AI × GROWTH" data-en="DATA × AI × GROWTH">DATA × AI × GROWTH</span></p><h2 data-i18n data-vi="Biến dữ liệu thành <em>động lực tăng trưởng.</em>" data-en="Turning data into <em>growth momentum.</em>">Biến dữ liệu thành <em>động lực tăng trưởng.</em></h2><div class="data-points"><p><strong>Nghiên cứu</strong><span data-i18n data-vi="Nghiên cứu thị trường và nhu cầu chưa được đáp ứng." data-en="Researching markets and unmet needs.">Nghiên cứu thị trường và nhu cầu chưa được đáp ứng.</span></p><p><strong>Thí nghiệm</strong><span data-i18n data-vi="A/B test và product analytics cho từng lần lặp." data-en="A/B testing and product analytics for every iteration.">A/B test và product analytics cho từng lần lặp.</span></p><p><strong>Scale</strong><span data-i18n data-vi="Tối ưu UA, ROAS và monetization dài hạn." data-en="Optimising UA, ROAS and long-term monetisation.">Tối ưu UA, ROAS và monetization dài hạn.</span></p></div></div></div></section>
     </main><footer id="site-footer"></footer><script src="./visuals.js"></script><script type="module" src="./app.js"></script>
   </body>
 </html>
