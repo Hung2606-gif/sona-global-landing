@@ -9,12 +9,26 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="description" data-vi="SONA-GLOBAL — Creations for Billions." data-en="SONA-GLOBAL — Creations for Billions." content="SONA-GLOBAL — Creations for Billions." />
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="./manifest.json" />
+    <!-- iOS Meta Tags -->
+    <link rel="apple-touch-icon" href="./media/icon-192.png" />
+    <!-- Performance hints -->
+    <meta name="application-name" content="SONA-GLOBAL" />
     <title data-vi="SONA-GLOBAL — Về chúng tôi" data-en="SONA-GLOBAL — About us">SONA-GLOBAL — Về chúng tôi</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./styles.css" />
     <link rel="stylesheet" href="./premium-visuals.css" />
+    <link rel="stylesheet" href="./performance.css" />
+    <!-- Preload critical resources -->
+    <link rel="preload" href="./performance-optimizer.js" as="script" />
+    <link rel="preload" href="./visuals.js" as="script" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Resource hints for better loading -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
   </head>
   <body data-page="about">
     <canvas id="network" aria-hidden="true"></canvas><div class="noise" aria-hidden="true"></div>
@@ -136,7 +150,9 @@
       </section>
     </main>
     <footer id="site-footer"></footer>
+    <!-- Load performance optimizer first -->
+    <script src="./performance-optimizer.js"></script>
     <script src="./visuals.js"></script>
-    <script type="module" src="./app.js"></script>
+    <script type="module" src="./app.js?v=20260817-4"></script>
   </body>
 </html>

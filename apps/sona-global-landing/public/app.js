@@ -323,79 +323,146 @@ function setAnimatedDataVisuals() {
 }
 
 function setInteractiveMotion() {
-  // Tối ưu tilt effect với throttle
-  document.querySelectorAll("[data-tilt]").forEach((card) => {
-    let tiltRAF = null;
-    
-    card.addEventListener("pointermove", (event) => {
-      if (tiltRAF) return; // Skip nếu đang xử lý frame trước
-      
-      tiltRAF = requestAnimationFrame(() => {
-        const rect = card.getBoundingClientRect();
-        card.style.setProperty("--tilt-y", `${((event.clientX - rect.left) / rect.width - .5) * 5}deg`);
-        card.style.setProperty("--tilt-x", `${((event.clientY - rect.top) / rect.height - .5) * -4}deg`);
-        tiltRAF = null;
-      });
+  const isMobile = window.innerWidth <= 720;
+  const isLowEnd = navigator.deviceMemory && navigator.deviceMemory <= 2;
+  
+  // Skip tilt on low-end devices
+  if (isLowEnd || isMobile) {
+    document.querySelectorAll("[data-tilt]").forEach(card => {
+      card.style.transform = 'none';
+      // Simple touch feedback instead
+      card.addEventListener("touchstart", () => card.style.transform = "scale(0.98)", { passive: true });
+      card.addEventListener("touchend", () => card.style.transform = "scale(1)", { passive: true });
     });
+    return;
+  }
+  
+  // Optimized tilt with requestAnimationFrame batching
+  const tiltElements = document.querySelectorAll("[data-tilt]");
+  let tiltRAF = null;
+  const pendingTilts = new Map();
+  
+  const processTilts = () => {
+    pendingTilts.forEach((data, element) => {
+      element.style.setProperty("--tilt-y", `${data.rotateY}deg`);
+      element.style.setProperty("--tilt-x", `${data.rotateX}deg`);
+    });
+    pendingTilts.clear();
+    tiltRAF = null;
+  };
+  
+  tiltElements.forEach((card) => {
+    card.addEventListener("pointermove", (event) => {
+      const rect = card.getBoundingClientRect();
+      const rotateY = ((event.clientX - rect.left) / rect.width - .5) * 5;
+      const rotateX = ((event.clientY - rect.top) / rect.height - .5) * -4;
+      
+      pendingTilts.set(card, { rotateY, rotateX });
+      
+      if (!tiltRAF) {
+        tiltRAF = requestAnimationFrame(processTilts);
+      }
+    }, { passive: true });
     
     card.addEventListener("pointerleave", () => { 
-      if (tiltRAF) cancelAnimationFrame(tiltRAF);
-      tiltRAF = null;
+      pendingTilts.delete(card);
       card.style.setProperty("--tilt-y", "0deg"); 
       card.style.setProperty("--tilt-x", "0deg"); 
     });
   });
   
-  // Throttle parallax scroll - chỉ chạy mỗi 16ms (~60fps)
-  const parallax = document.querySelectorAll("[data-parallax]");
+  // Highly optimized parallax with Intersection Observer
+  const parallaxElements = document.querySelectorAll("[data-parallax]");
+  if (!parallaxElements.length) return;
+  
   let scrollRAF = null;
-  let lastScrollY = window.scrollY;
+  let isScrolling = false;
   
-  const move = () => {
-    if (lastScrollY === window.scrollY) return; // Skip nếu không scroll
-    lastScrollY = window.scrollY;
-    parallax.forEach((element) => element.style.transform = `translateY(${window.scrollY * Number(element.dataset.parallax)}px)`);
-  };
+  // Only track visible elements
+  const visibleElements = new Set();
   
-  const throttledScroll = () => {
-    if (scrollRAF) return; // Skip nếu đang xử lý frame trước
-    scrollRAF = requestAnimationFrame(() => {
-      move();
-      scrollRAF = null;
+  const parallaxObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        visibleElements.add(entry.target);
+      } else {
+        visibleElements.delete(entry.target);
+      }
     });
+  }, { rootMargin: '100px' });
+  
+  parallaxElements.forEach(el => parallaxObserver.observe(el));
+  
+  const updateParallax = () => {
+    if (!isScrolling) return;
+    
+    const scrollY = window.scrollY;
+    visibleElements.forEach(element => {
+      const speed = Number(element.dataset.parallax);
+      element.style.transform = `translate3d(0, ${scrollY * speed}px, 0)`;
+    });
+    
+    scrollRAF = null;
+    isScrolling = false;
   };
   
-  window.addEventListener("scroll", throttledScroll, { passive: true });
-  move();
+  window.addEventListener("scroll", () => {
+    isScrolling = true;
+    if (!scrollRAF) {
+      scrollRAF = requestAnimationFrame(updateParallax);
+    }
+  }, { passive: true });
 }
 
 function drawNetwork() {
   const canvas = document.querySelector("#network");
   if (!canvas || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  const context = canvas.getContext("2d", { alpha: true, desynchronized: true }); // Tối ưu context
-  const points = Array.from({ length: 32 }, () => ({ x: Math.random(), y: Math.random(), vx: (Math.random() - .5) * .00022, vy: (Math.random() - .5) * .00022 })); // Giảm từ 42 xuống 32 points
+  
+  // Performance optimizations
+  const isMobile = window.innerWidth <= 720;
+  const isLowEnd = navigator.deviceMemory && navigator.deviceMemory <= 2;
+  
+  if (isLowEnd) {
+    canvas.style.display = 'none';
+    return;
+  }
+  
+  const context = canvas.getContext("2d", { 
+    alpha: true, 
+    desynchronized: true,
+    powerPreference: "low-power" // Battery optimization
+  });
+  
+  // Adaptive particle count
+  const baseCount = isMobile ? 20 : 32;
+  const points = Array.from({ length: baseCount }, () => ({ 
+    x: Math.random(), 
+    y: Math.random(), 
+    vx: (Math.random() - .5) * .0002, 
+    vy: (Math.random() - .5) * .0002 
+  }));
   
   let resizeRAF = null;
   const resize = () => { 
     if (resizeRAF) return;
     resizeRAF = requestAnimationFrame(() => {
-      canvas.width = window.innerWidth * devicePixelRatio; 
-      canvas.height = window.innerHeight * devicePixelRatio; 
+      const dpr = Math.min(window.devicePixelRatio, 2); // Cap DPR for performance
+      canvas.width = window.innerWidth * dpr; 
+      canvas.height = window.innerHeight * dpr; 
       canvas.style.width = `${window.innerWidth}px`; 
       canvas.style.height = `${window.innerHeight}px`; 
-      context.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+      context.setTransform(dpr, 0, 0, dpr, 0, 0);
       resizeRAF = null;
     });
   };
   
   let lastFrameTime = 0;
-  const targetFPS = 30; // Giảm từ 60fps xuống 30fps để tiết kiệm CPU
+  const targetFPS = isMobile ? 20 : 30; // Reduced from 60fps
   const frameInterval = 1000 / targetFPS;
   
   const render = (currentTime) => {
     const elapsed = currentTime - lastFrameTime;
     
-    // Throttle to 30fps thay vì 60fps
     if (elapsed < frameInterval) {
       requestAnimationFrame(render);
       return;
@@ -406,7 +473,7 @@ function drawNetwork() {
     const width = window.innerWidth, height = window.innerHeight;
     context.clearRect(0, 0, width, height);
     
-    // Cập nhật vị trí points
+    // Update positions (batch operations)
     points.forEach((point) => { 
       point.x += point.vx; 
       point.y += point.vy; 
@@ -414,8 +481,13 @@ function drawNetwork() {
       if (point.y < 0 || point.y > 1) point.vy *= -1; 
     });
     
-    // Vẽ đường nối (giảm khoảng cách tối đa xuống 120px để ít đường hơn)
-    const maxDistance = 120;
+    // Optimized drawing with reduced distance checks
+    const maxDistance = isMobile ? 100 : 120;
+    context.strokeStyle = "rgba(85,228,255,0.08)";
+    context.fillStyle = "rgba(216,255,94,.32)";
+    
+    // Batch path operations
+    context.beginPath();
     for (let i = 0; i < points.length; i += 1) {
       for (let j = i + 1; j < points.length; j += 1) { 
         const a = points[i], b = points[j];
@@ -424,18 +496,17 @@ function drawNetwork() {
         const d = Math.hypot(dx, dy);
         
         if (d < maxDistance) { 
-          context.strokeStyle = `rgba(85,228,255,${.08 * (1 - d / maxDistance)})`; 
-          context.beginPath(); 
+          context.globalAlpha = .08 * (1 - d / maxDistance);
           context.moveTo(a.x * width, a.y * height); 
           context.lineTo(b.x * width, b.y * height); 
-          context.stroke(); 
         } 
       }
     }
+    context.stroke();
     
-    // Vẽ các điểm
+    // Batch circle drawing
     points.forEach((point) => { 
-      context.fillStyle = "rgba(216,255,94,.32)"; 
+      context.globalAlpha = .32;
       context.beginPath(); 
       context.arc(point.x * width, point.y * height, 1.2, 0, Math.PI * 2); 
       context.fill(); 
@@ -445,7 +516,7 @@ function drawNetwork() {
   };
   
   resize(); 
-  window.addEventListener("resize", resize); 
+  window.addEventListener("resize", resize, { passive: true }); 
   requestAnimationFrame(render);
 }
 
@@ -521,3 +592,25 @@ setContactForm();
 drawNetwork();
 initRotatingProducts();
 window.addEventListener("scroll", () => document.querySelector(".site-header")?.classList.toggle("is-scrolled", window.scrollY > 12), { passive: true });
+
+// Register Service Worker for performance
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(registration => {
+        console.log('🚀 SW registered successfully');
+        
+        // Handle updates
+        registration.addEventListener('updatefound', () => {
+          const newWorker = registration.installing;
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              console.log('📦 New version available');
+              // Could show update notification here
+            }
+          });
+        });
+      })
+      .catch(error => console.log('❌ SW registration failed:', error));
+  });
+}

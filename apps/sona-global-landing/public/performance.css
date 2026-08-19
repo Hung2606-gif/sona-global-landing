@@ -1,0 +1,346 @@
+/**
+ * PERFORMANCE OPTIMIZATIONS CSS
+ * GPU acceleration, reduced repaints, optimized animations
+ */
+
+/* ============================================
+   GPU ACCELERATION & HARDWARE OPTIMIZATION
+   ============================================ */
+
+/* Force GPU acceleration for animated elements */
+.neural-particle,
+.data-pulse,
+.scan-line,
+.connection-line,
+.brain-outline-pulse,
+.apero-product-card,
+.product-orbit img,
+.metric-card,
+.stats-visual {
+  will-change: transform;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transform: translate3d(0, 0, 0); /* Force hardware acceleration */
+}
+
+/* Optimize text rendering for better performance */
+body {
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   REDUCED MOTION OPTIMIZATIONS
+   ============================================ */
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  /* Hide particle effects entirely for accessibility */
+  #particle-canvas,
+  .brain-effects-overlay,
+  .neural-particle,
+  .data-pulse,
+  .scan-line {
+    display: none !important;
+  }
+}
+
+/* ============================================
+   LOW-END DEVICE OPTIMIZATIONS
+   ============================================ */
+
+/* Disable expensive effects on low-memory devices */
+@media (max-device-memory: 2GB) {
+  .brain-overlay-svg,
+  .ai-atom-visual,
+  .scanner-visual,
+  .premium-globe,
+  .neural-particle,
+  .data-pulse {
+    filter: none !important;
+  }
+  
+  .apero-product-card,
+  .metric-card,
+  .ai-brain-hero,
+  .product-orbit,
+  .stats-visual {
+    box-shadow: none !important;
+  }
+  
+  .brain-effects-overlay,
+  .glassmorphism,
+  .hero-art::before,
+  .section::before {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+/* ============================================
+   SLOW CONNECTION OPTIMIZATIONS
+   ============================================ */
+
+/* Hide heavy animations on slow connections */
+.low-bandwidth .neural-particle,
+.low-bandwidth .data-pulse,
+.low-bandwidth .scan-line,
+.low-bandwidth .connection-line,
+.low-bandwidth .brain-outline-pulse,
+.low-bandwidth .premium-globe,
+.low-bandwidth .ai-atom-visual {
+  animation: none !important;
+  transform: none !important;
+}
+
+.low-bandwidth #particle-canvas {
+  display: none;
+}
+
+/* ============================================
+   MOBILE OPTIMIZATIONS
+   ============================================ */
+
+@media (max-width: 720px) {
+  /* Reduce complex 3D transforms on mobile */
+  .apero-product-card {
+    transform: none !important;
+  }
+  
+  /* Simplify hover effects for touch devices */
+  .metric-card:hover,
+  .product-card:hover,
+  .stats-visual:hover {
+    transform: scale(1.02) !important;
+  }
+  
+  /* Optimize neural particles for mobile */
+  .neural-particle {
+    r: 2 !important;
+  }
+  
+  .data-pulse {
+    r: 3 !important;
+  }
+  
+  .connection-line {
+    stroke-width: 1 !important;
+  }
+}
+
+/* ============================================
+   CONTAIN & ISOLATION FOR BETTER PERFORMANCE
+   ============================================ */
+
+/* Isolate expensive repaints */
+.site-header,
+.site-footer {
+  contain: layout style paint;
+  isolation: isolate;
+}
+
+.hero-section,
+.section {
+  contain: layout style;
+}
+
+.ai-brain-hero,
+.apero-products,
+.metric-card {
+  contain: layout style paint;
+  isolation: isolate;
+}
+
+/* ============================================
+   ANIMATION PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+
+/* Use cheaper transforms instead of changing properties */
+.neural-particle,
+.data-pulse {
+  animation-fill-mode: both;
+  animation-timing-function: ease-out;
+}
+
+/* Batch similar animations */
+@keyframes optimizedFloat {
+  0%, 100% { 
+    transform: translate3d(0, 0, 0) scale(1); 
+  }
+  50% { 
+    transform: translate3d(0, -20px, 0) scale(1.1); 
+  }
+}
+
+.neural-particle {
+  animation: optimizedFloat 4s ease-in-out infinite;
+}
+
+/* ============================================
+   BATTERY SAVER MODE
+   ============================================ */
+
+/* Automatically reduce animations when battery is low */
+@media (prefers-reduced-data: reduce) {
+  .neural-particle,
+  .data-pulse,
+  .scan-line,
+  .connection-line,
+  .premium-globe {
+    animation-duration: 8s !important; /* Slower animations */
+  }
+  
+  #particle-canvas {
+    opacity: 0.3;
+  }
+}
+
+/* ============================================
+   HIGH CONTRAST MODE SUPPORT
+   ============================================ */
+
+@media (prefers-contrast: high) {
+  .neural-particle,
+  .data-pulse,
+  .connection-line {
+    opacity: 1 !important;
+  }
+  
+  .brain-effects-overlay {
+    background: transparent !important;
+  }
+}
+
+/* ============================================
+   OPTIMIZED LOADING STATES
+   ============================================ */
+
+/* Skeleton loading for heavy components */
+.ai-brain-hero:not(.loaded) {
+  background: linear-gradient(90deg, 
+    rgba(85, 228, 255, 0.1) 25%, 
+    rgba(85, 228, 255, 0.2) 50%, 
+    rgba(85, 228, 255, 0.1) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeletonLoading 1.5s infinite;
+}
+
+@keyframes skeletonLoading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.apero-products:not(.loaded) {
+  opacity: 0.3;
+  filter: blur(5px);
+}
+
+.apero-products.loaded {
+  transition: opacity 0.5s ease, filter 0.5s ease;
+}
+
+/* ============================================
+   EMERGENCY PERFORMANCE MODE
+   ============================================ */
+
+/* Ultra-low performance mode for very slow devices */
+.emergency-perf-mode .neural-particle,
+.emergency-perf-mode .data-pulse,
+.emergency-perf-mode .scan-line,
+.emergency-perf-mode .connection-line,
+.emergency-perf-mode .brain-outline-pulse {
+  display: none !important;
+}
+
+.emergency-perf-mode .ai-brain-hero {
+  filter: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.emergency-perf-mode #particle-canvas {
+  display: none;
+}
+
+/* ============================================
+   RETINA DISPLAY OPTIMIZATIONS
+   ============================================ */
+
+@media (-webkit-min-device-pixel-ratio: 2) {
+  /* Use higher quality images on retina displays */
+  .brain-image,
+  .product-orbit img {
+    image-rendering: crisp-edges;
+  }
+}
+
+/* ============================================
+   PRINT OPTIMIZATIONS
+   ============================================ */
+
+@media print {
+  /* Hide all animations and effects for printing */
+  .neural-particle,
+  .data-pulse,
+  .scan-line,
+  .connection-line,
+  .brain-outline-pulse,
+  #particle-canvas,
+  .brain-effects-overlay {
+    display: none !important;
+  }
+  
+  /* Ensure good contrast for printing */
+  .ai-brain-hero,
+  .apero-product-card {
+    border: 1px solid #ccc;
+    box-shadow: none;
+  }
+}
+
+/* ============================================
+   DEVELOPER TOOLS
+   ============================================ */
+
+/* Performance debugging (remove in production) */
+.perf-debug * {
+  outline: 1px solid red;
+}
+
+.perf-debug .neural-particle {
+  background: red !important;
+}
+
+.perf-debug .data-pulse {
+  background: blue !important;
+}
+
+/* Show performance info */
+.perf-info {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px;
+  font-family: monospace;
+  font-size: 12px;
+  z-index: 9999;
+  border-radius: 5px;
+  display: none;
+}
+
+.show-perf-info .perf-info {
+  display: block;
+}
